@@ -1,3 +1,4 @@
+!!! CAMBIARE URL, USERNAME E PASSWORD NELLO YAML SOSTITUENDOLI CON LE PROPRIE CREDENZIALI LOCALI !!!
 # Studio Medico
 Lo scopo di questo progetto è simulare la creazione di un API CRUD.
 Come caso di esempio, ci è stato assegnato uno studio medico.
