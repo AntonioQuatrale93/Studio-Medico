@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>it.develhope</groupId>
 	<artifactId>Studio-Medico</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>Studio-Medico</name>
 	<description>Lavoro di gruppo </description>
 	<properties>

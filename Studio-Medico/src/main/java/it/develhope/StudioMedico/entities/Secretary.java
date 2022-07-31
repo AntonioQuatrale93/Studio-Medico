@@ -24,11 +24,13 @@ public class Secretary {
     private String email;
     @Column(name = "secretary_phone_number")
     private String phoneNumber;
+    @Column(name = "address")
     private String address;
 
     @OneToMany
     @JoinColumn(name = "doctor_id")
-    List<Doctor> doctorList;
+    @Column(name = "doctor_list")
+    private List<Doctor> doctorList;
 
     private Secretary() {
     }

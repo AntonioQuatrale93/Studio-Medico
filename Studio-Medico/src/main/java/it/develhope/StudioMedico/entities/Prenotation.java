@@ -1,7 +1,5 @@
 package it.develhope.StudioMedico.entities;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -16,23 +14,32 @@ public class Prenotation {
     private long prenotationId;
     @Column(name = "prenotation_date")
     private Date date;
+    @Column(name = "status")
+    private PrenotationStatus prenotationStatus;
+    @Column(name = "translated_status")
+    private String statusRecord;
+
     @OneToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
+
     @OneToOne
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
+
 
 
     private Prenotation() {
     }
 
 
-    private Prenotation( long prenotationId, Date date, Patient patient, Doctor doctor) {
+    private Prenotation( long prenotationId, Date date, Patient patient, Doctor doctor, PrenotationStatus prenotationStatus) {
         this.prenotationId = prenotationId;
         this.date = date;
         this.doctor = doctor;
         this.patient = patient;
+        this.prenotationStatus = PrenotationStatus.BOOKED;
+        this.statusRecord = String.valueOf(prenotationStatus);
 
     }
 
@@ -66,5 +73,21 @@ public class Prenotation {
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
+    }
+
+    public PrenotationStatus getPrenotationStatus() {
+        return prenotationStatus;
+    }
+
+    public void setPrenotationStatus(PrenotationStatus prenotationStatus) {
+        this.prenotationStatus = prenotationStatus;
+    }
+
+    public String getStatusRecord() {
+        return statusRecord;
+    }
+
+    public void setStatusRecord(String statusRecord) {
+        this.statusRecord = statusRecord;
     }
 }

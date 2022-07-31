@@ -23,6 +23,7 @@ public class Patient {
     private String email;
     @Column(name = "patient_phone_number")
     private String phoneNumber;
+    @Column(name = "address")
     private String address;
 
 
@@ -31,6 +32,7 @@ public class Patient {
     private Doctor doctor;
     @OneToMany
     @JoinColumn(name = "prenotation_id")
+    @Column(name = "booked_visits")
     private List<Prenotation> prenotationList;
 
 

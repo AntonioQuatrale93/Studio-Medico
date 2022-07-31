@@ -1,0 +1,8 @@
+it\develhope\StudioMedico\repositories\PatientRepository.class
+it\develhope\StudioMedico\StudioMedicoApplication.class
+it\develhope\StudioMedico\entities\Prenotation.class
+it\develhope\StudioMedico\repositories\SecretaryRepository.class
+it\develhope\StudioMedico\repositories\DoctorsRepository.class
+it\develhope\StudioMedico\entities\Secretary.class
+it\develhope\StudioMedico\entities\Patient.class
+it\develhope\StudioMedico\entities\Doctor.class

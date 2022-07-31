@@ -19,16 +19,19 @@ public class Doctor {
     private String surname;
     @Column(name = "fiscal_code")
     private String fiscalCode;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, name = "email")
     private String email;
+    @Column(name = "specialization")
     private String specialization;
     @Column(name = "doctor_phone_number")
     private String phoneNumber;
+    @Column(name = "address")
     private String address;
 
 
     @OneToMany
     @JoinColumn(name = "prenotation_id")
+    @Column(name = "prenotation_list")
     private List<Prenotation> prenotationList;
     @OneToOne
     @JoinColumn(name = "secretary_id")

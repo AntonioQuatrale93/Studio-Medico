@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: it.develhope.StudioMedico.StudioMedicoApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.994 s - in it.develhope.StudioMedico.StudioMedicoApplicationTests
