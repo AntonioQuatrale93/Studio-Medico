@@ -27,7 +27,7 @@ public class Secretary {
     @Column(name = "address")
     private String address;
 
-    @OneToMany
+    @OneToMany(mappedBy = "secretary")
     @JoinColumn(name = "doctor_id")
     @Column(name = "doctor_list")
     private List<Doctor> doctorList;

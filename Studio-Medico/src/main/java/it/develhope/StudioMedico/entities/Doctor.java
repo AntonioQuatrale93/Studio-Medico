@@ -29,7 +29,7 @@ public class Doctor {
     private String address;
 
 
-    @OneToMany
+    @OneToMany(mappedBy = "doctor")
     @JoinColumn(name = "prenotation_id")
     @Column(name = "prenotation_list")
     private List<Prenotation> prenotationList;

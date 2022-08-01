@@ -30,7 +30,7 @@ public class Patient {
     @OneToOne
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
-    @OneToMany
+    @OneToMany(mappedBy = "patient")
     @JoinColumn(name = "prenotation_id")
     @Column(name = "booked_visits")
     private List<Prenotation> prenotationList;
