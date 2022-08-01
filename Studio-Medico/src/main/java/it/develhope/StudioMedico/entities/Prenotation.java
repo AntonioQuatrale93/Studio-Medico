@@ -5,7 +5,7 @@ import java.util.Date;
 
 
 @Entity
-@Table
+@Table(name = "prenotations")
 public class Prenotation {
 
     @Id
@@ -19,14 +19,14 @@ public class Prenotation {
     //questo campo è una stringa che traduce il valore numerico di "status" in modo che sia leggibile su SQL
     //Ex: "status: 0 translated_status: BOOKED"
     @Column(name = "translated_status")
-    private String statusRecord = String.valueOf(prenotationStatus);
+    private String statusRecord = String.valueOf(this.getPrenotationStatus());
 
     @OneToOne
-    @JoinColumn(name = "patient_id")
+    @JoinColumn(name = "ext_patient_id", nullable = false)
     private Patient patient;
 
     @OneToOne
-    @JoinColumn(name = "doctor_id")
+    @JoinColumn(name = "ext_doctor_id", nullable = false)
     private Doctor doctor;
 
 

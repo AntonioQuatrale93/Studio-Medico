@@ -1,21 +1,20 @@
 package it.develhope.StudioMedico.entities;
 
-import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "Dottori")
+@Table(name = "Doctors")
 
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "doctor_id")
     private Long doctorId;
-    @Column(name = "doctor_name")
+    @Column(name = "name")
     private String name;
-    @Column(name = "doctor_surname")
+    @Column(name = "surname")
     private String surname;
     @Column(name = "fiscal_code")
     private String fiscalCode;
@@ -29,7 +28,7 @@ public class Doctor {
     private String address;
 
 
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany
     @JoinColumn(name = "prenotation_id")
     @Column(name = "prenotation_list")
     private List<Prenotation> prenotationList;

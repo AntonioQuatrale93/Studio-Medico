@@ -1,12 +1,11 @@
 package it.develhope.StudioMedico.entities;
 
-import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "secretary")
 
 public class Secretary {
 
@@ -14,20 +13,20 @@ public class Secretary {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "secretary_id")
     private Long secretaryId;
-    @Column(name = "secretary_name")
+    @Column(name = "name")
     private String name;
-    @Column(name = "secretary_surname")
+    @Column(name = "surname")
     private String surname;
     @Column(name = "fiscal_code")
     private String fiscalCode;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, name = "email")
     private String email;
-    @Column(name = "secretary_phone_number")
+    @Column(name = "phone_number")
     private String phoneNumber;
     @Column(name = "address")
     private String address;
 
-    @OneToMany(mappedBy = "secretary")
+    @OneToMany
     @JoinColumn(name = "doctor_id")
     @Column(name = "doctor_list")
     private List<Doctor> doctorList;

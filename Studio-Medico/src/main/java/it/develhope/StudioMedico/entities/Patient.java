@@ -4,24 +4,24 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "Pazienti")
+@Table(name = "patients")
 
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "patient_id")
     private Long patientId;
-    @Column(name = "patient_name")
+    @Column(name = "name")
     private String name;
-    @Column(name = "patient_surname")
+    @Column(name = "surname")
     private String surname;
     @Column(name = "fiscal_code")
     private String fiscalCode;
-    @Column(name = "patient_age")
+    @Column(name = "age")
     private int age;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, name = "email")
     private String email;
-    @Column(name = "patient_phone_number")
+    @Column(name = "phone_number")
     private String phoneNumber;
     @Column(name = "address")
     private String address;
@@ -30,7 +30,7 @@ public class Patient {
     @OneToOne
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
-    @OneToMany(mappedBy = "patient")
+    @OneToMany
     @JoinColumn(name = "prenotation_id")
     @Column(name = "booked_visits")
     private List<Prenotation> prenotationList;
