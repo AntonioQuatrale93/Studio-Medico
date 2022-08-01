@@ -1,7 +1,9 @@
 !!! CAMBIARE URL, USERNAME E PASSWORD NELLO YAML SOSTITUENDOLI CON LE PROPRIE CREDENZIALI LOCALI !!!
 # Studio Medico
-Lo scopo di questo progetto è simulare la creazione di un API CRUD.
-Come caso di esempio, ci è stato assegnato uno studio medico.
+Nel software in progetto andremo a creare la parte back end di una struttura ospedaliera. 
+Noi andremo a gestire il login tramite Springboot 
+e andremo a creare il database e a definire la sua struttura, gestiremo le operazioni CRUD e le chiamate Api che poi verranno utilizzate per interfacciarsi al Database e per visualizzare, modificare o eliminare le visite e le prenotazioni.
+
 ***
 #### Membri : <br>
 _MarcoSatta_, [Profilo GitHub](https://github.com/MarcoSatta) <br>
