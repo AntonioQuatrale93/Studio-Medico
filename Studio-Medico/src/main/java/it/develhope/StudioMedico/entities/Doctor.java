@@ -40,7 +40,7 @@ public class Doctor {
     }
 
 
-    private Doctor(Long doctorId, String name, String surname, String fiscalCode, String specialization, String email, String phoneNumber, String address, List prenotationList, Secretary secretary) {
+    private Doctor(Long doctorId, String name, String surname, String fiscalCode, String specialization, String email, String phoneNumber, String address, List<Prenotation> prenotationList, Secretary secretary) {
         this.doctorId = doctorId;
         this.name = name;
         this.surname = surname;

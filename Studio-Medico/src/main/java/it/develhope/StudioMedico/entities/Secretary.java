@@ -35,7 +35,7 @@ public class Secretary {
     }
 
 
-    private Secretary(Long secretaryId, String name, String surname, String fiscalCode, String email, String phoneNumber, String address, List doctorList) {
+    private Secretary(Long secretaryId, String name, String surname, String fiscalCode, String email, String phoneNumber, String address, List<Doctor> doctorList) {
         this.secretaryId = secretaryId;
         this.name = name;
         this.surname = surname;

@@ -6,6 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "prenotations")
+
 public class Prenotation {
 
     @Id

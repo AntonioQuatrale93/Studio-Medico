@@ -40,7 +40,7 @@ public class Patient {
     }
 
 
-    private Patient(Long patientId, String name, String surname, String fiscalCode, Integer age, String email, String phoneNumber, String address, Doctor doctor, List prenotationList) {
+    private Patient(Long patientId, String name, String surname, String fiscalCode, Integer age, String email, String phoneNumber, String address, Doctor doctor, List<Prenotation> prenotationList) {
         this.patientId = patientId;
         this.name = name;
         this.surname = surname;
