@@ -1,8 +1,11 @@
 package it.develhope.StudioMedico.entities;
 
 
+import org.hibernate.mapping.Collection;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Doctors")
@@ -11,7 +14,7 @@ public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "doctor_id")
-    private Long doctorId;
+    private long doctorId;
     @Column(name = "name")
     private String name;
     @Column(name = "surname")
@@ -28,27 +31,24 @@ public class Doctor {
     private String address;
 
 
-    @OneToMany
-    @JoinColumn(name = "prenotation_id")
-    @Column(name = "prenotation_list")
-    private List<Prenotation> prenotationList;
-    @OneToOne
-    @JoinColumn(name = "secretary_id")
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+
+    private Set<Prenotation> prenotationList;
+    @ManyToOne
+    @JoinColumn(name = "secretary_id" )
     private Secretary secretary;
 
-    private Doctor() {
-    }
+    public Doctor() {}
 
-
-    private Doctor(Long doctorId, String name, String surname, String fiscalCode, String specialization, String email, String phoneNumber, String address, List<Prenotation> prenotationList, Secretary secretary) {
+    public Doctor(long doctorId, String name, String surname, String fiscalCode, String email, String specialization, String phoneNumber, String address, Set<Prenotation> prenotationList, Secretary secretary) {
         this.doctorId = doctorId;
         this.name = name;
         this.surname = surname;
         this.fiscalCode = fiscalCode;
-        this.address = address;
         this.email = email;
-        this.phoneNumber = phoneNumber;
         this.specialization = specialization;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
         this.prenotationList = prenotationList;
         this.secretary = secretary;
     }
@@ -56,6 +56,7 @@ public class Doctor {
     public long getDoctorId() {
         return doctorId;
     }
+
 
     public void setDoctorId(long doctorId) {
         this.doctorId = doctorId;
@@ -117,12 +118,12 @@ public class Doctor {
         this.address = address;
     }
 
-    public List<Prenotation> getPrenotationList() {
-        return prenotationList;
+    public Set<Prenotation> getPrenotationList() {
+        return (Set<Prenotation>) prenotationList;
     }
 
     public void setPrenotationList(List<Prenotation> prenotationList) {
-        this.prenotationList = prenotationList;
+        this.prenotationList = (Set<Prenotation>) prenotationList;
     }
 
     public Secretary getSecretary() {

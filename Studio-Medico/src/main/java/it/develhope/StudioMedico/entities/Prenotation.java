@@ -22,11 +22,11 @@ public class Prenotation {
     @Column(name = "translated_status")
     private String statusRecord = String.valueOf(this.getPrenotationStatus());
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "ext_patient_id", nullable = false)
     private Patient patient;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "ext_doctor_id", nullable = false)
     private Doctor doctor;
 
@@ -36,15 +36,7 @@ public class Prenotation {
     }
 
 
-    private Prenotation( long prenotationId, Date date, Patient patient, Doctor doctor, PrenotationStatus prenotationStatus) {
-        this.prenotationId = prenotationId;
-        this.date = date;
-        this.doctor = doctor;
-        this.patient = patient;
-        this.prenotationStatus = PrenotationStatus.BOOKED;
-        this.statusRecord = String.valueOf(prenotationStatus);
 
-    }
 
     public long getPrenotationId() {
         return prenotationId;
