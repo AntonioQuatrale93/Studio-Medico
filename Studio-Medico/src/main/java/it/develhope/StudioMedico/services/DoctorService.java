@@ -18,3 +18,4 @@ public interface DoctorService {
     ResponseEntity deleteById(Long id);
     void deleteAll();
 }
+

@@ -1,5 +1,8 @@
 package it.develhope.StudioMedico.dto;
 
+/**
+ * Questa classe contiene solo gli attributi modificabili del dottore, ovvero indirizzo e numero di telefono
+ */
 public class DoctorDto {
     private String phoneNumber;
     private String address;

@@ -17,8 +17,10 @@ public class Prenotation {
     private Date date;
     @Column(name = "status")
     private PrenotationStatus prenotationStatus;
-    //questo campo è una stringa che traduce il valore numerico di "status" in modo che sia leggibile su SQL
-    //Ex: "status: 0 translated_status: BOOKED"
+    /**
+     * questo campo è una stringa che traduce il valore numerico di "status" in modo che sia leggibile su SQL
+     *     Ex: "status: 0 translated_status: BOOKED"
+     */
     @Column(name = "translated_status")
     private String statusRecord = String.valueOf(this.getPrenotationStatus());
 
