@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.develhope.StudioMedico.repositories.SecretaryRepository;
-import it.develhope.StudioMedico.controllers.exceptions.SecretaryNotFoundException;
 import it.develhope.StudioMedico.entities.Secretary;
+import it.develhope.StudioMedico.exceptions.SecretaryNotFoundException;
 
 @RestController
+@RequestMapping("/secretary")
 public class SecretaryController {
     
     private final SecretaryRepository repository;
@@ -25,12 +27,12 @@ public class SecretaryController {
         this.repository = repository;
     }
 
-    @GetMapping
+    @GetMapping()
     List<Secretary> all(){
         return repository.findAll();
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     Secretary one(@PathVariable Long id) throws NameNotFoundException{
         return repository.findById(id).orElseThrow(() -> new SecretaryNotFoundException(id));
     }
@@ -40,7 +42,7 @@ public class SecretaryController {
         return repository.save(secretary);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     Secretary replaceSecretary (@RequestBody Secretary newSecretary, @PathVariable Long id){
         return repository.findById(id)
             .map( secretary -> {
@@ -58,7 +60,7 @@ public class SecretaryController {
             });
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     void deleteSecretary (@PathVariable Long id) {
         repository.deleteById(id);
     }
