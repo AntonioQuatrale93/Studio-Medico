@@ -35,7 +35,7 @@ public class DoctorController {
         return doctorServiceImpl.getById(id);
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("/{id}")
     public Doctor updateDoctor(@PathVariable Long id, @RequestBody DoctorDto doctorDto){
         return doctorServiceImpl.updateDoctor(id, doctorDto);
     }
