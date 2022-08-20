@@ -2,7 +2,7 @@ package it.develhope.StudioMedico.entities;
 
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "secretary")
@@ -26,25 +26,14 @@ public class Secretary {
     @Column(name = "address")
     private String address;
 
-    @OneToMany
-    @JoinColumn(name = "doctor_id")
-    @Column(name = "doctor_list")
-    private List<Doctor> doctorList;
+    @OneToMany(mappedBy = "secretary", fetch = FetchType.LAZY)
+    private Set<Doctor> doctorSet;
 
     private Secretary() {
     }
 
 
-    private Secretary(Long secretaryId, String name, String surname, String fiscalCode, String email, String phoneNumber, String address, List<Doctor> doctorList) {
-        this.secretaryId = secretaryId;
-        this.name = name;
-        this.surname = surname;
-        this.fiscalCode = fiscalCode;
-        this.address = address;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.doctorList = doctorList;
-    }
+
 
     public long getSecretaryId() {
         return secretaryId;
@@ -102,11 +91,11 @@ public class Secretary {
         this.address = address;
     }
 
-    public List<Doctor> getDoctorList() {
-        return doctorList;
+    public Set<Doctor> getDoctorSet() {
+        return doctorSet;
     }
 
-    public void setDoctorList(List<Doctor> doctorList) {
-        this.doctorList = doctorList;
+    public void setDoctorSet(Set<Doctor> doctorSet) {
+        this.doctorSet = doctorSet;
     }
 }
