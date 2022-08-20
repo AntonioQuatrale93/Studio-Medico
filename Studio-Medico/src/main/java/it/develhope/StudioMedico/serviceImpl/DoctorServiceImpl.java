@@ -49,10 +49,10 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public ResponseEntity deleteById(Long id) {
-        if(doctorsRepository.existsById(id)){
+        if (doctorsRepository.existsById(id)) {
             doctorsRepository.deleteById(id);
             return null;
-        }else{
+        } else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }

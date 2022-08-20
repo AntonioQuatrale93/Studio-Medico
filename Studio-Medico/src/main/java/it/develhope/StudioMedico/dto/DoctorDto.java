@@ -7,7 +7,8 @@ public class DoctorDto {
     private String phoneNumber;
     private String address;
 
-    public DoctorDto(){}
+    public DoctorDto() {
+    }
 
     public DoctorDto(String phoneNumber, String address) {
         this.phoneNumber = phoneNumber;

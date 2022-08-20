@@ -13,9 +13,13 @@ public interface DoctorService {
     Doctor createDoctor(Doctor doctor);
 
     Optional<Doctor> getById(Long id);
+
     List<Doctor> getAllDoctors();
+
     Doctor updateDoctor(Long id, DoctorDto doctorDto);
+
     ResponseEntity deleteById(Long id);
+
     void deleteAll();
 }
 

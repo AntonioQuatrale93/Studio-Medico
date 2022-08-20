@@ -33,8 +33,6 @@ public class Secretary {
     }
 
 
-
-
     public long getSecretaryId() {
         return secretaryId;
     }

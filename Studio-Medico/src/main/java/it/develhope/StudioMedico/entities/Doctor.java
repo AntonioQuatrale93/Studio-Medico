@@ -35,10 +35,11 @@ public class Doctor {
     private Set<Prenotation> prenotationList;
 
     @ManyToOne
-    @JoinColumn(name = "secretary_id" )
+    @JoinColumn(name = "secretary_id")
     private Secretary secretary;
 
-    public Doctor() {}
+    public Doctor() {
+    }
 
     public Doctor(long doctorId, String name, String surname, String fiscalCode, String email, String specialization, String phoneNumber, String address, Set<Prenotation> prenotationList, Secretary secretary) {
         this.doctorId = doctorId;

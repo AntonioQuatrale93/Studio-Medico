@@ -18,35 +18,34 @@ public class DoctorController {
     private DoctorServiceImpl doctorServiceImpl;
 
 
-
     @PostMapping
-    public Doctor createDoctor(@RequestBody Doctor doctor){
+    public Doctor createDoctor(@RequestBody Doctor doctor) {
         return doctorServiceImpl.createDoctor(doctor);
 
     }
 
     @GetMapping
-    public List<Doctor> getAllDoctor(){
+    public List<Doctor> getAllDoctor() {
         return doctorServiceImpl.getAllDoctors();
     }
 
     @GetMapping("/{id}")
-    public Optional<Doctor> getDoctorById(@PathVariable Long id){
+    public Optional<Doctor> getDoctorById(@PathVariable Long id) {
         return doctorServiceImpl.getById(id);
     }
 
     @PatchMapping("/{id}")
-    public Doctor updateDoctor(@PathVariable Long id, @RequestBody DoctorDto doctorDto){
+    public Doctor updateDoctor(@PathVariable Long id, @RequestBody DoctorDto doctorDto) {
         return doctorServiceImpl.updateDoctor(id, doctorDto);
     }
 
     @DeleteMapping
-    public void deleteDoctor(){
+    public void deleteDoctor() {
         doctorServiceImpl.deleteAll();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteDoctorById(@PathVariable Long id){
+    public ResponseEntity deleteDoctorById(@PathVariable Long id) {
         return doctorServiceImpl.deleteById(id);
     }
 }
