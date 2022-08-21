@@ -12,7 +12,7 @@ public class Secretary {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "secretary_id")
-    private Long secretaryId;
+    private long secretaryId;
     @Column(name = "name")
     private String name;
     @Column(name = "surname")
@@ -32,6 +32,16 @@ public class Secretary {
     private Secretary() {
     }
 
+    public Secretary(Long secretaryId, String name, String surname, String fiscalCode, String email, String phoneNumber, String address, Set<Doctor> doctorSet) {
+        this.secretaryId = secretaryId;
+        this.name = name;
+        this.surname = surname;
+        this.fiscalCode = fiscalCode;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.doctorSet = doctorSet;
+    }
 
     public long getSecretaryId() {
         return secretaryId;
