@@ -19,27 +19,25 @@ public class SecretaryController {
     private SecretaryServiceImpl secretaryServiceImpl;
 
 
-
     @GetMapping()
-    List<Secretary> getSecretary(){
+    List<Secretary> getSecretary() {
         return secretaryServiceImpl.getSecretary();
     }
 
 
-
     @PostMapping
-    Secretary createSecretary(@RequestBody Secretary secretary){
+    Secretary createSecretary(@RequestBody Secretary secretary) {
         return secretaryServiceImpl.createSecretary(secretary);
     }
 
     @PatchMapping("/{id}")
-    Secretary replaceSecretary (@RequestBody SecretaryDto secretaryDto, @PathVariable Long id){
-        return secretaryServiceImpl.updateSecretary( id, secretaryDto);
+    Secretary replaceSecretary(@RequestBody SecretaryDto secretaryDto, @PathVariable Long id) {
+        return secretaryServiceImpl.updateSecretary(id, secretaryDto);
 
     }
 
     @DeleteMapping()
-    void deleteSecretary () {
+    void deleteSecretary() {
         secretaryServiceImpl.deleteSecretary();
     }
 
