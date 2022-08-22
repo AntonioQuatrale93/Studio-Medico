@@ -31,7 +31,7 @@ public class Doctor {
     private String address;
 
 
-    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "doctor",fetch = FetchType.LAZY)
     private Set<Prenotation> prenotationList;
 
     @ManyToOne
@@ -124,6 +124,7 @@ public class Doctor {
     }
 
     public void setPrenotationList(List<Prenotation> prenotationList) {
+        // questo cast rischia di generare bug perchè si sta castando una lista a set
         this.prenotationList = (Set<Prenotation>) prenotationList;
     }
 

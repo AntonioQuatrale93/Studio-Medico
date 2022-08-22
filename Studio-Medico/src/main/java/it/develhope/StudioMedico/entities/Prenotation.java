@@ -36,7 +36,6 @@ public class Prenotation {
     private Prenotation() {
     }
 
-
     public long getPrenotationId() {
         return prenotationId;
     }
@@ -51,22 +50,6 @@ public class Prenotation {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
     }
 
     public PrenotationStatus getPrenotationStatus() {
@@ -84,4 +67,22 @@ public class Prenotation {
     public void setStatusRecord(String statusRecord) {
         this.statusRecord = statusRecord;
     }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
 }
+
+
