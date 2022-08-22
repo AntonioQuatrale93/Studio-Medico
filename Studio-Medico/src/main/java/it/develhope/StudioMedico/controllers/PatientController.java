@@ -48,4 +48,5 @@ public class PatientController {
     public void deleteAllPatient(){
         patientServiceImpl.deleteAll();
     }
+
 }
