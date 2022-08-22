@@ -4,7 +4,6 @@ import java.util.List;
 
 import it.develhope.StudioMedico.dto.SecretaryDto;
 import it.develhope.StudioMedico.serviceImpl.SecretaryServiceImpl;
-import it.develhope.StudioMedico.services.SecretaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

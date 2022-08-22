@@ -1,10 +1,8 @@
 package it.develhope.StudioMedico.entities;
 
 
-import org.hibernate.mapping.Collection;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -57,7 +55,6 @@ public class Doctor {
     public long getDoctorId() {
         return doctorId;
     }
-
 
     public void setDoctorId(long doctorId) {
         this.doctorId = doctorId;
@@ -120,11 +117,11 @@ public class Doctor {
     }
 
     public Set<Prenotation> getPrenotationList() {
-        return (Set<Prenotation>) prenotationList;
+        return prenotationList;
     }
 
-    public void setPrenotationList(List<Prenotation> prenotationList) {
-        this.prenotationList = (Set<Prenotation>) prenotationList;
+    public void setPrenotationList(Set<Prenotation> prenotationList) {
+        this.prenotationList = prenotationList;
     }
 
     public Secretary getSecretary() {
@@ -135,4 +132,8 @@ public class Doctor {
         this.secretary = secretary;
     }
 }
+
+
+
+
 

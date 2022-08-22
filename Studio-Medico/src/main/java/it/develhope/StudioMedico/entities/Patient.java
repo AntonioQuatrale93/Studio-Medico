@@ -10,7 +10,7 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "patient_id")
-    private Long patientId;
+    private long patientId;
     @Column(name = "name")
     private String name;
     @Column(name = "surname")
