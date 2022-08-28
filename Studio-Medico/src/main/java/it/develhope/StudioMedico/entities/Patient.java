@@ -31,20 +31,17 @@ public class Patient {
 
     @OneToOne
     @JoinColumn(name = "doctor_id")
-
     private Doctor doctor;
-    @OneToMany
-    @JoinColumn(name = "prenotation_id")
-
-    @Column(name = "booked_visits")
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Prenotation> prenotationList;
 
 
-    private Patient() {
+    public Patient() {
     }
 
 
-    private Patient(Long patientId, String name, String surname, String fiscalCode, Integer age, String email, String phoneNumber, String address, Doctor doctor, List<Prenotation> prenotationList) {
+    public Patient(Long patientId, String name, String surname, String fiscalCode, Integer age, String email, String phoneNumber, String address, Doctor doctor, List<Prenotation> prenotationList) {
         this.patientId = patientId;
         this.name = name;
         this.surname = surname;

@@ -3,6 +3,7 @@ package it.develhope.StudioMedico.serviceImpl;
 import it.develhope.StudioMedico.dto.PrenotationDto;
 import it.develhope.StudioMedico.entities.Patient;
 import it.develhope.StudioMedico.entities.Prenotation;
+import it.develhope.StudioMedico.entities.PrenotationStatus;
 import it.develhope.StudioMedico.repositories.DoctorsRepository;
 import it.develhope.StudioMedico.repositories.PatientRepository;
 import it.develhope.StudioMedico.repositories.PrenotationRepository;
@@ -30,8 +31,17 @@ public class PrenotationServiceImpl implements PrenotationService {
 
     @Override
     public Prenotation createPrenotation(Prenotation prenotation, long doctorId, long patientId ) {
-        prenotation.setDoctor(doctorsRepository.findById(doctorId).get());
-        prenotation.setPatient(patientRepository.findById(patientId).get());
+        if (doctorsRepository.existsById(doctorId)) {
+            prenotation.setDoctor(doctorsRepository.getReferenceById(doctorId));
+        } else {
+            new Exception("doctor not found");
+        }
+        if (patientRepository.existsById(patientId)) {
+            prenotation.setPatient(patientRepository.getReferenceById(patientId));
+        } else {
+            new Exception("patient not found");
+        }
+        prenotation.setPrenotationStatus(PrenotationStatus.BOOKED);
         return prenotationRepository.save(prenotation);
     }
 
@@ -49,20 +59,20 @@ public class PrenotationServiceImpl implements PrenotationService {
     public Prenotation updatePrenotation(long id, PrenotationDto prenotationDto) {
         if (prenotationRepository.existsById(id)) {
             Prenotation prenotation = prenotationRepository.findById(id).get();
-            if( prenotationDto.getDate() != null) {
+            if (prenotationDto.getDate() != null) {
                 prenotation.setDate(prenotationDto.getDate());
             }
-            if(prenotationDto.getPrenotationStatus() != null) {
+            if (prenotationDto.getPrenotationStatus() != null) {
                 prenotation.setPrenotationStatus(prenotationDto.getPrenotationStatus());
             }
-            if(prenotationDto.getPatientId() != null) {
-                prenotation.setPatient(patientRepository.findById(prenotationDto.getPatientId()).get());
+            if (prenotationDto.getDoctorId() != null) {
+                prenotation.setDoctor(doctorsRepository.getReferenceById(prenotationDto.getDoctorId()));
             }
-            if(prenotationDto.getDoctorId() != null) {
-                prenotation.setDoctor(doctorsRepository.findById(prenotationDto.getDoctorId()).get());
+            if (prenotationDto.getPatientId() != null) {
+                prenotation.setPatient(patientRepository.getReferenceById(prenotationDto.getPatientId()));
             }
-            Prenotation newPrenotation = prenotationRepository.saveAndFlush(prenotation);
-            return newPrenotation;
+            Prenotation updatedPrenotation = prenotationRepository.saveAndFlush(prenotation);
+            return updatedPrenotation;
         }
         return null;
     }
@@ -74,6 +84,7 @@ public class PrenotationServiceImpl implements PrenotationService {
             prenotationRepository.deleteById(id);
             return null;
         } else {
+            new Exception("prenotation not found");
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }

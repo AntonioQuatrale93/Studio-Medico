@@ -32,11 +32,10 @@ public class Doctor {
 
 
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
-
+    @JsonIgnore
     private Set<Prenotation> prenotationList;
 
     @ManyToOne
-
     @JoinColumn(name = "secretary_id")
     private Secretary secretary;
 
