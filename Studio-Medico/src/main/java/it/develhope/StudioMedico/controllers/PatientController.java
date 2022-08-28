@@ -1,9 +1,12 @@
 package it.develhope.StudioMedico.controllers;
 
 
+import it.develhope.StudioMedico.dto.PatientDto;
 import it.develhope.StudioMedico.entities.Patient;
 import it.develhope.StudioMedico.repositories.PatientRepository;
+import it.develhope.StudioMedico.serviceImpl.PatientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,77 +17,38 @@ import java.util.Optional;
 public class PatientController {
 
     @Autowired
-    private PatientRepository patientRepository;
+    private PatientServiceImpl patientServiceImpl;
 
 
     @PostMapping
-    public Patient postPatient(@RequestBody Patient patient){
-
-        return patientRepository.saveAndFlush(patient);
+    public Patient createPatinet(@RequestBody Patient patient){
+       return patientServiceImpl.createPatient(patient);
     }
 
     @GetMapping
-    public List<Patient> getPatient(){
+    public List<Patient> getAllPatiet(){
 
-        return patientRepository.findAll();
+    return patientServiceImpl.getAllPatient();
     }
 
     @GetMapping("/{id}")
-    public Optional<Patient> getSingle(@PathVariable Long id){
-
-        Optional<Patient> patientOptional = patientRepository.findById(id);
-
-        try {
-
-            if (patientRepository.existsById(id)){
-                System.out.println("Id selezionato esiste");
-            }else {
-                throw new Exception("Id selezionato non esiste");
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return patientOptional;
+    public Optional<Patient> getPatientById(@PathVariable Long id){
+        return patientServiceImpl.getById(id);
     }
 
-    @PutMapping("/{id}")
-    public Patient putPatient(@RequestBody Patient patient){
-
-        Patient patient1 = patientRepository.saveAndFlush(patient);
-
-        try {
-            if (patient1.equals(patient)){
-                throw new Exception("parametro modificato");
-            }else {
-                System.out.println("impossibile aggiornare la macchina");
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return patient1;
+    @PatchMapping("/{id}")
+    public Patient updatePatient(@RequestBody PatientDto patientDto, @PathVariable Long id){
+        return patientServiceImpl.updatePatient(id, patientDto);
     }
 
     @DeleteMapping("/{id}")
-    public void deletePatient(@PathVariable long id){
-
-        try {
-            if (patientRepository.existsById(id)){
-                patientRepository.deleteById(id);
-                System.out.println("Id cancellato correttamente");
-            }else {
-                throw new Exception("Id selezionato non esiste");
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+    public ResponseEntity deleteById(@PathVariable Long id){
+        return patientServiceImpl.deleteById(id);
     }
 
     @DeleteMapping
-    public void deleteAllPatient(@RequestParam List<Long> patients){
-
-        patientRepository.deleteAllById(patients);
+    public void deleteAll(){
+        patientServiceImpl.deleteAll();
     }
+
 }
