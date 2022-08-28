@@ -1,5 +1,7 @@
 package it.develhope.StudioMedico.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -29,9 +31,11 @@ public class Patient {
 
     @OneToOne
     @JoinColumn(name = "doctor_id")
+
     private Doctor doctor;
     @OneToMany
     @JoinColumn(name = "prenotation_id")
+
     @Column(name = "booked_visits")
     private List<Prenotation> prenotationList;
 

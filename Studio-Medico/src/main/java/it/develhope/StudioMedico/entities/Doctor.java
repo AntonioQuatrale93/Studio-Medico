@@ -2,6 +2,8 @@ package it.develhope.StudioMedico.entities;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -30,9 +32,11 @@ public class Doctor {
 
 
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+
     private Set<Prenotation> prenotationList;
 
     @ManyToOne
+
     @JoinColumn(name = "secretary_id")
     private Secretary secretary;
 

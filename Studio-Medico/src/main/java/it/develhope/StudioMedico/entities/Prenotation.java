@@ -1,6 +1,9 @@
 package it.develhope.StudioMedico.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -14,7 +17,7 @@ public class Prenotation {
     @Column(name = "prenotation_id")
     private long prenotationId;
     @Column(name = "prenotation_date")
-    private Date date;
+    private LocalDate date;
     @Column(name = "status")
     private PrenotationStatus prenotationStatus;
     /**
@@ -25,10 +28,12 @@ public class Prenotation {
     private String statusRecord = String.valueOf(this.getPrenotationStatus());
 
     @ManyToOne
+
     @JoinColumn(name = "ext_patient_id", nullable = false)
     private Patient patient;
 
     @ManyToOne
+
     @JoinColumn(name = "ext_doctor_id", nullable = false)
     private Doctor doctor;
 
@@ -36,6 +41,14 @@ public class Prenotation {
     private Prenotation() {
     }
 
+    public Prenotation(long prenotationId, LocalDate date, PrenotationStatus prenotationStatus, String statusRecord, Patient patient, Doctor doctor) {
+        this.prenotationId = prenotationId;
+        this.date = date;
+        this.prenotationStatus = prenotationStatus;
+        this.statusRecord = statusRecord;
+        this.patient = patient;
+        this.doctor = doctor;
+    }
 
     public long getPrenotationId() {
         return prenotationId;
@@ -45,11 +58,11 @@ public class Prenotation {
         this.prenotationId = prenotationId;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
