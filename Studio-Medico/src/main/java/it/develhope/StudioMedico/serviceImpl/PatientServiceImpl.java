@@ -6,7 +6,6 @@ import it.develhope.StudioMedico.entities.Patient;
 import it.develhope.StudioMedico.repositories.PatientRepository;
 import it.develhope.StudioMedico.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,17 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Optional<Patient> getById(Long id) {
-        return patientRepository.findById(id);
+       try {
+           if (patientRepository.existsById(id)){
+               patientRepository.findById(id);
+               System.out.println("id selezionato esiste");
+           }else {
+               throw new Exception("impossibile trovare id selezionato " + (HttpStatus.NOT_FOUND));
+           }
+       }catch (Exception e){
+           e.printStackTrace();
+       }
+       return null;
     }
 
     @Override
@@ -54,12 +63,17 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public ResponseEntity deleteById(Long id) {
-        if (patientRepository.existsById(id)){
-            patientRepository.deleteById(id);
-            return null;
-        }else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
+         try {
+             if (patientRepository.existsById(id)){
+                  patientRepository.deleteById(id);
+                  ResponseEntity.status(200);
+             }else {
+                 throw new Exception("impossibile cancellare id selezionato");
+             }
+         }catch (Exception e){
+             e.printStackTrace();
+         }
+         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
     @Override
