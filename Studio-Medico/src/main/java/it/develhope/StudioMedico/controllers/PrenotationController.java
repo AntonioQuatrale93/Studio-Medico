@@ -19,33 +19,33 @@ public class PrenotationController {
 
 
     @PostMapping
-    public Prenotation createPrenotation(@RequestBody Prenotation prenotation, @RequestParam long doctorId, @RequestParam long patientId){
+    public Prenotation createPrenotation(@RequestBody Prenotation prenotation, @RequestParam long doctorId, @RequestParam long patientId) {
         return prenotationServiceImpl.createPrenotation(prenotation, doctorId, patientId);
     }
 
 
     @GetMapping
-    public List<Prenotation> getAllPrenotation(){
+    public List<Prenotation> getAllPrenotation() {
         return prenotationServiceImpl.getAllPrenotation();
     }
 
     @GetMapping("/{id}")
-    public Optional<Prenotation> getPrenotationById(@PathVariable long id){
+    public Optional<Prenotation> getPrenotationById(@PathVariable long id) {
         return prenotationServiceImpl.getPrenotationById(id);
     }
 
     @PatchMapping("/{id}")
-    public Prenotation updatePrenotation(@PathVariable long id, @RequestBody PrenotationDto prenotationDto ){
+    public Prenotation updatePrenotation(@PathVariable long id, @RequestBody PrenotationDto prenotationDto) {
         return prenotationServiceImpl.updatePrenotation(id, prenotationDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deletePrenotationById(@PathVariable long id){
+    public ResponseEntity deletePrenotationById(@PathVariable long id) {
         return prenotationServiceImpl.deletePrenotationById(id);
     }
 
     @DeleteMapping
-    public void deleteAllPrenotation(){
+    public void deleteAllPrenotation() {
         prenotationServiceImpl.deleteAllPrenotation();
     }
 }

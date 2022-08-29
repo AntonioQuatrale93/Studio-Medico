@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class PatientServiceImpl implements PatientService {
 
@@ -60,6 +61,6 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public void deleteAll() {
-       patientRepository.deleteAll();
+        patientRepository.deleteAll();
     }
 }

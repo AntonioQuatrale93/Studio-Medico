@@ -45,7 +45,7 @@ public class PatientController {
     }
 
     @DeleteMapping
-    public void deleteAllPatient(){
+    public void deleteAllPatient() {
         patientServiceImpl.deleteAll();
     }
 

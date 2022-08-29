@@ -5,7 +5,8 @@ public class PatientDto {
     private String phoneNumber;
     private String address;
 
-    public PatientDto(){}
+    public PatientDto() {
+    }
 
     public PatientDto(String phoneNumber, String address) {
         this.phoneNumber = phoneNumber;
