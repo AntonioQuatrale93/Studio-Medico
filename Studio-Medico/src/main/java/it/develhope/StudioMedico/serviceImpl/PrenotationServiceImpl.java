@@ -1,7 +1,6 @@
 package it.develhope.StudioMedico.serviceImpl;
 
 import it.develhope.StudioMedico.dto.PrenotationDto;
-import it.develhope.StudioMedico.entities.Patient;
 import it.develhope.StudioMedico.entities.Prenotation;
 import it.develhope.StudioMedico.entities.PrenotationStatus;
 import it.develhope.StudioMedico.repositories.DoctorsRepository;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class PrenotationServiceImpl implements PrenotationService {
 
@@ -28,9 +28,8 @@ public class PrenotationServiceImpl implements PrenotationService {
     private DoctorsRepository doctorsRepository;
 
 
-
     @Override
-    public Prenotation createPrenotation(Prenotation prenotation, long doctorId, long patientId ) {
+    public Prenotation createPrenotation(Prenotation prenotation, long doctorId, long patientId) {
         if (doctorsRepository.existsById(doctorId)) {
             prenotation.setDoctor(doctorsRepository.getReferenceById(doctorId));
         } else {
