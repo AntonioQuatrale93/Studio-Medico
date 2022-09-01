@@ -39,6 +39,9 @@ public class DoctorController {
         return doctorServiceImpl.updateDoctor(id, doctorDto);
     }
 
+    /**
+     * bel metodo
+     */
     @DeleteMapping
     public void deleteDoctor() {
         doctorServiceImpl.deleteAll();
