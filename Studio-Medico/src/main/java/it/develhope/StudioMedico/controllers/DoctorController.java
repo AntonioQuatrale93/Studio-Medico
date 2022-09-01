@@ -39,6 +39,11 @@ public class DoctorController {
         return doctorServiceImpl.updateDoctor(id, doctorDto);
     }
 
+    @PatchMapping
+    public Doctor assignSecretary(@RequestParam Long doctorId, @RequestParam Long secretaryId){
+        return doctorServiceImpl.assignSecretary(doctorId, secretaryId);
+    }
+
     @DeleteMapping
     public void deleteDoctor() {
         doctorServiceImpl.deleteAll();
