@@ -39,17 +39,16 @@ public class DoctorController {
         return doctorServiceImpl.updateDoctor(id, doctorDto);
     }
 
-    /**
-     * bel metodo
-     */
+    @PatchMapping
+    public Doctor assignSecretary(@RequestParam Long doctorId, @RequestParam Long secretaryId){
+        return doctorServiceImpl.assignSecretary(doctorId, secretaryId);
+    }
+
     @DeleteMapping
     public void deleteDoctor() {
         doctorServiceImpl.deleteAll();
     }
 
-    /**
-     * E' molto bello
-     * */
     @DeleteMapping("/{id}")
     public ResponseEntity deleteDoctorById(@PathVariable Long id) {
         return doctorServiceImpl.deleteById(id);

@@ -18,6 +18,8 @@ public interface DoctorService {
 
     Doctor updateDoctor(Long id, DoctorDto doctorDto);
 
+    Doctor assignSecretary(Long doctorId, Long secretaryId);
+
     ResponseEntity deleteById(Long id);
 
     void deleteAll();

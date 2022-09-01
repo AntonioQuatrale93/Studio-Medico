@@ -1,6 +1,8 @@
 package it.develhope.StudioMedico.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -27,6 +29,7 @@ public class Secretary {
     private String address;
 
     @OneToMany(mappedBy = "secretary", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Doctor> doctorSet;
 
     private Secretary() {
