@@ -3,6 +3,7 @@ package it.develhope.StudioMedico.serviceImpl;
 import it.develhope.StudioMedico.dto.PatientDto;
 import it.develhope.StudioMedico.entities.Doctor;
 import it.develhope.StudioMedico.entities.Patient;
+import it.develhope.StudioMedico.repositories.DoctorsRepository;
 import it.develhope.StudioMedico.repositories.PatientRepository;
 import it.develhope.StudioMedico.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class PatientServiceImpl implements PatientService {
 
     @Autowired
     private PatientRepository patientRepository;
+
+    @Autowired
+    private DoctorsRepository doctorsRepository;
 
 
     @Override
@@ -44,6 +48,17 @@ public class PatientServiceImpl implements PatientService {
             patient.setPhoneNumber(patientDto.getPhoneNumber());
             Patient newPatient = patientRepository.saveAndFlush(patient);
             return newPatient;
+        }
+        return null;
+    }
+
+    @Override
+    public Patient assignDoctor(Long patientId, Long doctorId) {
+        if(doctorsRepository.existsById(doctorId)){
+            Patient patient = patientRepository.findById(patientId).get();
+            patient.setDoctor(doctorsRepository.findById(doctorId).get());
+            Patient updatedPatient = patientRepository.saveAndFlush(patient);
+            return updatedPatient;
         }
         return null;
     }

@@ -58,7 +58,7 @@ public class DoctorServiceImpl implements DoctorService {
             Doctor doctor = doctorsRepository.findById(doctorId).get();
             doctor.setSecretary(secretaryRepository.findById(secretaryId).get());
             Doctor updatedDoctor = doctorsRepository.saveAndFlush(doctor);
-            return doctor;
+            return updatedDoctor;
         }
         return null;
     }

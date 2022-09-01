@@ -1,6 +1,7 @@
 package it.develhope.StudioMedico.controllers;
 
 import it.develhope.StudioMedico.dto.PatientDto;
+import it.develhope.StudioMedico.entities.Doctor;
 import it.develhope.StudioMedico.entities.Patient;
 import it.develhope.StudioMedico.serviceImpl.PatientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,14 @@ public class PatientController {
         return patientServiceImpl.getById(id);
     }
 
-    @PatchMapping
+    @PatchMapping("/{id}")
     public Patient updatePatient(@PathVariable long id, @RequestBody PatientDto patientDto) {
         return patientServiceImpl.updatePatient(id, patientDto);
+    }
+
+    @PatchMapping
+    public Patient assignDoctor(@RequestParam Long patientId, @RequestParam Long doctorId){
+        return patientServiceImpl.assignDoctor(doctorId, patientId);
     }
 
     @DeleteMapping("/{id}")

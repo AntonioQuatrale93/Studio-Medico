@@ -19,6 +19,8 @@ public interface PatientService {
 
     Patient updatePatient(Long id, PatientDto patientDto);
 
+    Patient assignDoctor(Long patientId, Long doctorId);
+
     ResponseEntity deleteById(Long id);
 
     void deleteAll();
