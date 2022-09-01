@@ -53,4 +53,5 @@ public class DoctorController {
     public ResponseEntity deleteDoctorById(@PathVariable Long id) {
         return doctorServiceImpl.deleteById(id);
     }
+
 }
