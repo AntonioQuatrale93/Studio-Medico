@@ -54,7 +54,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Patient assignDoctor(Long patientId, Long doctorId) {
-        if(doctorsRepository.existsById(doctorId)){
+        if(patientRepository.existsById(patientId)){
             Patient patient = patientRepository.findById(patientId).get();
             patient.setDoctor(doctorsRepository.findById(doctorId).get());
             Patient updatedPatient = patientRepository.saveAndFlush(patient);

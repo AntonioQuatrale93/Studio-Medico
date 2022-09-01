@@ -7,7 +7,7 @@ spring:
     database: mysql
     show_sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
   jackson:
     serialization:
       FAIL_ON_EMPTY_BEANS: 'false'

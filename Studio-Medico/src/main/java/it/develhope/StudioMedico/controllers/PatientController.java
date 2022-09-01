@@ -42,7 +42,7 @@ public class PatientController {
 
     @PatchMapping
     public Patient assignDoctor(@RequestParam Long patientId, @RequestParam Long doctorId){
-        return patientServiceImpl.assignDoctor(doctorId, patientId);
+        return patientServiceImpl.assignDoctor(patientId, doctorId);
     }
 
     @DeleteMapping("/{id}")

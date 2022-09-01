@@ -13,7 +13,7 @@ import java.util.Set;
  * - secretary that is the coworker for that doctor (the secretary id is the foreign key for the Database)
  * */
 @Entity
-@Table(name = "Doctors")
+@Table(name = "doctor")
 
 public class Doctor {
     @Id
@@ -40,6 +40,10 @@ public class Doctor {
     @JsonIgnore
     private Set<Prenotation> prenotationList;
 
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Patient> patientSet;
+
     @ManyToOne
     @JoinColumn(name = "secretary_id")
     private Secretary secretary;
@@ -53,7 +57,7 @@ public class Doctor {
     /**
      * A simple constructor with all argument
      * */
-    public Doctor(long doctorId, String name, String surname, String fiscalCode, String email, String specialization, String phoneNumber, String address, Set<Prenotation> prenotationList, Secretary secretary) {
+    public Doctor(long doctorId, String name, String surname, String fiscalCode, String email, String specialization, String phoneNumber, String address, Set<Prenotation> prenotationList, Secretary secretary, Set<Patient> patientSet) {
         this.doctorId = doctorId;
         this.name = name;
         this.surname = surname;
@@ -64,6 +68,7 @@ public class Doctor {
         this.address = address;
         this.prenotationList = prenotationList;
         this.secretary = secretary;
+        this.patientSet = patientSet;
     }
 
     /**
@@ -214,6 +219,14 @@ public class Doctor {
      * */
     public void setSecretary(Secretary secretary) {
         this.secretary = secretary;
+    }
+
+    public Set<Patient> getPatientSet() {
+        return patientSet;
+    }
+
+    public void setPatientSet(Set<Patient> patientSet) {
+        this.patientSet = patientSet;
     }
 }
 
