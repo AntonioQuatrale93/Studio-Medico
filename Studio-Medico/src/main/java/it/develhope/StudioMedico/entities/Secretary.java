@@ -4,7 +4,7 @@ package it.develhope.StudioMedico.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "secretary")
@@ -30,12 +30,12 @@ public class Secretary {
 
     @OneToMany(mappedBy = "secretary", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<Doctor> doctorSet;
+    private List<Doctor> doctorList;
 
     private Secretary() {
     }
 
-    public Secretary(Long secretaryId, String name, String surname, String fiscalCode, String email, String phoneNumber, String address, Set<Doctor> doctorSet) {
+    public Secretary(Long secretaryId, String name, String surname, String fiscalCode, String email, String phoneNumber, String address, List<Doctor> doctorList) {
         this.secretaryId = secretaryId;
         this.name = name;
         this.surname = surname;
@@ -43,7 +43,7 @@ public class Secretary {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.doctorSet = doctorSet;
+        this.doctorList = doctorList;
     }
 
     public long getSecretaryId() {
@@ -102,11 +102,11 @@ public class Secretary {
         this.address = address;
     }
 
-    public Set<Doctor> getDoctorSet() {
-        return doctorSet;
+    public List<Doctor> getDoctorList() {
+        return doctorList;
     }
 
-    public void setDoctorSet(Set<Doctor> doctorSet) {
-        this.doctorSet = doctorSet;
+    public void setDoctorList(List<Doctor> doctorList) {
+        this.doctorList = doctorList;
     }
 }

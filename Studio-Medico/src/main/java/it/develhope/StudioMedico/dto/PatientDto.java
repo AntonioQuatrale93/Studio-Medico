@@ -5,7 +5,7 @@ public class PatientDto {
     private String name;
     private String surname;
     private String fiscalCode;
-    private int age;
+    private Integer age;
     private String email;
     private String phoneNumber;
     private String address;
@@ -47,11 +47,11 @@ public class PatientDto {
         this.fiscalCode = fiscalCode;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 

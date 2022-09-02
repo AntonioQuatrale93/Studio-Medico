@@ -20,7 +20,7 @@ public class Patient {
     @Column(name = "fiscal_code")
     private String fiscalCode;
     @Column(name = "age")
-    private int age;
+    private Integer age;
     @Column(unique = true, nullable = false, name = "email")
     private String email;
     @Column(name = "phone_number")
@@ -86,11 +86,11 @@ public class Patient {
         this.fiscalCode = fiscalCode;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 

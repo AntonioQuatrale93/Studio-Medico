@@ -4,7 +4,7 @@ package it.develhope.StudioMedico.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 /**
  * This doctor class has some useful information to describe at best a single doctor,
@@ -38,14 +38,15 @@ public class Doctor {
 
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<Prenotation> prenotationList;
+    private List<Prenotation> prenotationList;
 
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<Patient> patientSet;
+    private List<Patient> patientSet;
 
     @ManyToOne
     @JoinColumn(name = "secretary_id")
+    @JsonIgnore
     private Secretary secretary;
 
     /**
@@ -57,7 +58,7 @@ public class Doctor {
     /**
      * A simple constructor with all argument
      * */
-    public Doctor(long doctorId, String name, String surname, String fiscalCode, String email, String specialization, String phoneNumber, String address, Set<Prenotation> prenotationList, Secretary secretary, Set<Patient> patientSet) {
+    public Doctor(long doctorId, String name, String surname, String fiscalCode, String email, String specialization, String phoneNumber, String address, List<Prenotation> prenotationList, Secretary secretary, List<Patient> patientSet) {
         this.doctorId = doctorId;
         this.name = name;
         this.surname = surname;
@@ -195,14 +196,14 @@ public class Doctor {
      * This is the getter for the prenotations of the doctor
      * @return a list of all the prenotations of the doctor
      * */
-    public Set<Prenotation> getPrenotationList() {
+    public List<Prenotation> getPrenotationList() {
         return prenotationList;
     }
 
     /**
      * This is the setter for the prenotations of the doctor
      * */
-    public void setPrenotationList(Set<Prenotation> prenotationList) {
+    public void setPrenotationList(List<Prenotation> prenotationList) {
         this.prenotationList = prenotationList;
     }
 
@@ -221,11 +222,11 @@ public class Doctor {
         this.secretary = secretary;
     }
 
-    public Set<Patient> getPatientSet() {
+    public List<Patient> getPatientSet() {
         return patientSet;
     }
 
-    public void setPatientSet(Set<Patient> patientSet) {
+    public void setPatientList(List<Patient> patientSet) {
         this.patientSet = patientSet;
     }
 }

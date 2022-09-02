@@ -29,11 +29,35 @@ public class SecretaryServiceImpl implements SecretaryService {
     }
 
     @Override
+    public List<Doctor> getAllDoctor(Long id) throws Exception {
+        if(secretaryRepository.existsById(id)){
+            return secretaryRepository.findById(id).get().getDoctorList();
+        } throw new Exception("secretary not found");
+    }
+
+    @Override
     public Secretary updateSecretary(Long id, SecretaryDto secretaryDto) {
         if (secretaryRepository.existsById(id)) {
             Secretary secretary = secretaryRepository.findById(id).get();
-            secretary.setAddress(secretaryDto.getAddress());
-            secretary.setPhoneNumber(secretaryDto.getPhoneNumber());
+            if(secretaryDto.getName() != null){
+                secretary.setName(secretaryDto.getName());
+            }
+            if(secretaryDto.getSurname() != null){
+                secretary.setSurname(secretaryDto.getSurname());
+            }
+            if(secretaryDto.getFiscalCode() != null){
+                secretary.setFiscalCode(secretaryDto.getFiscalCode());
+            }
+            if(secretaryDto.getEmail() != null){
+                secretary.setEmail(secretaryDto.getEmail());
+            }
+            if(secretaryDto.getAddress() != null){
+                secretary.setAddress(secretaryDto.getAddress());
+            }
+            if(secretaryDto.getPhoneNumber() != null){
+                secretary.setPhoneNumber(secretaryDto.getPhoneNumber());
+            }
+
             Secretary newSecretary = secretaryRepository.saveAndFlush(secretary);
             return newSecretary;
         }

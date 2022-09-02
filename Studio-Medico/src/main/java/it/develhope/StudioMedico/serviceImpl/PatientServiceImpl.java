@@ -3,6 +3,7 @@ package it.develhope.StudioMedico.serviceImpl;
 import it.develhope.StudioMedico.dto.PatientDto;
 import it.develhope.StudioMedico.entities.Doctor;
 import it.develhope.StudioMedico.entities.Patient;
+import it.develhope.StudioMedico.entities.Prenotation;
 import it.develhope.StudioMedico.repositories.DoctorsRepository;
 import it.develhope.StudioMedico.repositories.PatientRepository;
 import it.develhope.StudioMedico.services.PatientService;
@@ -22,6 +23,9 @@ public class PatientServiceImpl implements PatientService {
 
     @Autowired
     private DoctorsRepository doctorsRepository;
+
+    @Autowired
+    private PrenotationServiceImpl prenotationService;
 
 
     @Override
@@ -44,8 +48,27 @@ public class PatientServiceImpl implements PatientService {
     public Patient updatePatient(Long id, PatientDto patientDto) {
         if (patientRepository.existsById(id)) {
             Patient patient = patientRepository.findById(id).get();
-            patient.setAddress(patientDto.getAddress());
-            patient.setPhoneNumber(patientDto.getPhoneNumber());
+            if(patientDto.getName() != null){
+                patient.setName(patientDto.getName());
+            }
+            if(patientDto.getSurname() != null){
+                patient.setSurname(patientDto.getSurname());
+            }
+            if(patientDto.getFiscalCode() != null){
+                patient.setFiscalCode(patientDto.getFiscalCode());
+            }
+            if(patientDto.getAge() != null){
+                patient.setAge(patientDto.getAge());
+            }
+            if(patientDto.getEmail() != null){
+                patient.setEmail(patientDto.getEmail());
+            }
+            if(patientDto.getPhoneNumber() != null){
+                patient.setPhoneNumber(patientDto.getPhoneNumber());
+            }
+            if(patientDto.getAddress() != null){
+                patient.setAddress(patientDto.getAddress());
+            }
             Patient newPatient = patientRepository.saveAndFlush(patient);
             return newPatient;
         }
@@ -77,5 +100,10 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public void deleteAll() {
         patientRepository.deleteAll();
+    }
+
+
+    public Prenotation scheduleVisit(Prenotation prenotation, Long patientId, Long doctorId){
+        return prenotationService.createPrenotation(prenotation, patientId, doctorId);
     }
 }

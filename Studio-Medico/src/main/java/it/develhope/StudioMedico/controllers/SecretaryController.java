@@ -3,6 +3,7 @@ package it.develhope.StudioMedico.controllers;
 import java.util.List;
 
 import it.develhope.StudioMedico.dto.SecretaryDto;
+import it.develhope.StudioMedico.entities.Doctor;
 import it.develhope.StudioMedico.serviceImpl.SecretaryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,11 @@ public class SecretaryController {
     @GetMapping()
     List<Secretary> getSecretary() {
         return secretaryServiceImpl.getSecretary();
+    }
+
+    @GetMapping("/doctor/{id}")
+    public List<Doctor> getAllDoctor(@PathVariable Long id) throws Exception {
+        return secretaryServiceImpl.getAllDoctor(id);
     }
 
 
