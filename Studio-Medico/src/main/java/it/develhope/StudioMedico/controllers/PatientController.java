@@ -42,7 +42,7 @@ public class PatientController {
     }
 
     @PatchMapping
-    public Patient assignDoctor(@RequestParam Long patientId, @RequestParam Long doctorId){
+    public Patient assignDoctor(@RequestParam Long patientId, @RequestParam Long doctorId) {
         return patientServiceImpl.assignDoctor(patientId, doctorId);
     }
 
@@ -57,7 +57,7 @@ public class PatientController {
     }
 
     @PostMapping("/prenotation/{patientId}")
-    public Prenotation scheduleVisit(@PathVariable long patientId, @RequestParam long doctorId, @RequestBody Prenotation prenotation){
+    public Prenotation scheduleVisit(@PathVariable long patientId, @RequestParam long doctorId, @RequestBody Prenotation prenotation) {
         return patientServiceImpl.scheduleVisit(prenotation, patientId, doctorId);
     }
 
