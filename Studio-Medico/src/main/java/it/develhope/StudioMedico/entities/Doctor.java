@@ -82,6 +82,7 @@ public class Doctor {
 
     /**
      * This is the setter for the doctor ID
+     * @param doctorId this is the id of the doctor
      * */
     public void setDoctorId(long doctorId) {
         this.doctorId = doctorId;
@@ -97,6 +98,7 @@ public class Doctor {
 
     /**
      * This is the setter for the name of the doctor
+     * @param name this is the first name of the doctor
      * */
     public void setName(String name) {
         this.name = name;
@@ -112,6 +114,7 @@ public class Doctor {
 
     /**
      * This is the setter for the surname of the doctor
+     * @param surname this is the last name of the doctor
      * */
     public void setSurname(String surname) {
         this.surname = surname;
@@ -127,6 +130,7 @@ public class Doctor {
 
     /**
      * This is the setter for the fiscal code of the doctor
+     * @param fiscalCode this is the fiscal code of the doctor
      * */
     public void setFiscalCode(String fiscalCode) {
         this.fiscalCode = fiscalCode;
@@ -142,6 +146,7 @@ public class Doctor {
 
     /**
      * This is the setter for the email of the doctor
+     * @param email this is the email of the doctor
      * */
     public void setEmail(String email) {
         this.email = email;
@@ -157,6 +162,7 @@ public class Doctor {
 
     /**
      * This is the setter for the specialization of the doctor
+     * @param specialization this is the specialization of the doctor
      * */
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
@@ -172,6 +178,7 @@ public class Doctor {
 
     /**
      * This is the setter for the phone number of the doctor
+     * @param phoneNumber this is the phone number of the doctor
      * */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
@@ -187,6 +194,7 @@ public class Doctor {
 
     /**
      * This is the setter for the address of the doctor
+     * @param address this is the address of the doctor
      * */
     public void setAddress(String address) {
         this.address = address;
@@ -202,6 +210,7 @@ public class Doctor {
 
     /**
      * This is the setter for the prenotations of the doctor
+     * @param prenotationList this is the list of the prenotations for the doctor
      * */
     public void setPrenotationList(List<Prenotation> prenotationList) {
         this.prenotationList = prenotationList;
@@ -217,6 +226,7 @@ public class Doctor {
 
     /**
      * This is the setter for the secretary of the doctor
+     * @param secretary this is the secretary associated for the doctor
      * */
     public void setSecretary(Secretary secretary) {
         this.secretary = secretary;
