@@ -41,6 +41,8 @@ public class PrenotationServiceImpl implements PrenotationService {
             new Exception("patient not found");
         }
         prenotation.setPrenotationStatus(PrenotationStatus.BOOKED);
+        prenotation.setStatusRecord(prenotation.getPrenotationStatus().toString());
+
         return prenotationRepository.save(prenotation);
     }
 
@@ -63,6 +65,8 @@ public class PrenotationServiceImpl implements PrenotationService {
             }
             if (prenotationDto.getPrenotationStatus() != null) {
                 prenotation.setPrenotationStatus(prenotationDto.getPrenotationStatus());
+                prenotation.setStatusRecord(prenotation.getPrenotationStatus().toString());
+
             }
             if (prenotationDto.getDoctorId() != null) {
                 prenotation.setDoctor(doctorsRepository.getReferenceById(prenotationDto.getDoctorId()));

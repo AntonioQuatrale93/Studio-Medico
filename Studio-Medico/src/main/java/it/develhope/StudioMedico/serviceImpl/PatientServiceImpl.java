@@ -4,8 +4,10 @@ import it.develhope.StudioMedico.dto.PatientDto;
 import it.develhope.StudioMedico.entities.Doctor;
 import it.develhope.StudioMedico.entities.Patient;
 import it.develhope.StudioMedico.entities.Prenotation;
+import it.develhope.StudioMedico.entities.PrenotationStatus;
 import it.develhope.StudioMedico.repositories.DoctorsRepository;
 import it.develhope.StudioMedico.repositories.PatientRepository;
+import it.develhope.StudioMedico.repositories.PrenotationRepository;
 import it.develhope.StudioMedico.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +27,7 @@ public class PatientServiceImpl implements PatientService {
     private DoctorsRepository doctorsRepository;
 
     @Autowired
-    private PrenotationServiceImpl prenotationService;
+    private PrenotationRepository prenotationRepository;
 
 
     @Override
@@ -103,7 +105,20 @@ public class PatientServiceImpl implements PatientService {
     }
 
 
-    public Prenotation scheduleVisit(Prenotation prenotation, Long patientId, Long doctorId){
-        return prenotationService.createPrenotation(prenotation, patientId, doctorId);
+    public Prenotation scheduleVisit(Prenotation prenotation, long patientId, long doctorId){
+        if (doctorsRepository.existsById(doctorId)) {
+            prenotation.setDoctor(doctorsRepository.getReferenceById(doctorId));
+        } else {
+            new Exception("doctor not found");
+        }
+        if (patientRepository.existsById(patientId)) {
+            prenotation.setPatient(patientRepository.getReferenceById(patientId));
+        } else {
+            new Exception("patient not found");
+        }
+        prenotation.setPrenotationStatus(PrenotationStatus.BOOKED);
+        prenotation.setStatusRecord(prenotation.getPrenotationStatus().toString());
+        return prenotationRepository.save(prenotation);
     }
-}
+    }
+

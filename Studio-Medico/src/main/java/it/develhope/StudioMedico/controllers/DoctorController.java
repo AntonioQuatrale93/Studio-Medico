@@ -7,6 +7,8 @@ import it.develhope.StudioMedico.entities.Prenotation;
 import it.develhope.StudioMedico.serviceImpl.DoctorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +35,7 @@ public class DoctorController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Doctor> getDoctorById(@PathVariable Long id) {
+    public Optional<Doctor> getDoctorById(@PathVariable  Long id) {
         return doctorServiceImpl.getById(id);
     }
 

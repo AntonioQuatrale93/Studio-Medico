@@ -3,6 +3,7 @@ package it.develhope.StudioMedico.controllers;
 import it.develhope.StudioMedico.dto.PatientDto;
 import it.develhope.StudioMedico.entities.Doctor;
 import it.develhope.StudioMedico.entities.Patient;
+import it.develhope.StudioMedico.entities.Prenotation;
 import it.develhope.StudioMedico.serviceImpl.PatientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -54,5 +55,11 @@ public class PatientController {
     public void deleteAllPatient() {
         patientServiceImpl.deleteAll();
     }
+
+    @PostMapping("/prenotation/{patientId}")
+    public Prenotation scheduleVisit(@PathVariable long patientId, @RequestParam long doctorId, @RequestBody Prenotation prenotation){
+        return patientServiceImpl.scheduleVisit(prenotation, patientId, doctorId);
+    }
+
 
 }
