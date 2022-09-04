@@ -10,13 +10,14 @@ import java.util.List;
 
 public interface SecretaryService {
 
-    Secretary createSecretary(Secretary secretary);
+
+    ResponseEntity<Secretary> createSecretary(Secretary secretary);
 
     List<Secretary> getSecretary();
 
-    Secretary updateSecretary(Long id, SecretaryDto secretaryDto);
+    ResponseEntity<Secretary>updateSecretary(Long id, SecretaryDto secretaryDto);
 
-    void deleteSecretary();
+    ResponseEntity deleteSecretary();
 
 }
 

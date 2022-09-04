@@ -1,7 +1,6 @@
 package it.develhope.StudioMedico.serviceImpl;
 
 import it.develhope.StudioMedico.dto.PatientDto;
-import it.develhope.StudioMedico.entities.Doctor;
 import it.develhope.StudioMedico.entities.Patient;
 import it.develhope.StudioMedico.repositories.PatientRepository;
 import it.develhope.StudioMedico.services.PatientService;
@@ -21,14 +20,18 @@ public class PatientServiceImpl implements PatientService {
 
 
     @Override
-    public Patient createPatient(Patient patient) {
-        return patientRepository.save(patient);
+    public ResponseEntity<Patient> createPatient(Patient patient) {
+        patientRepository.save(patient);
+        return ResponseEntity.status(201).body(patient);
     }
 
     @Override
-    public Optional<Patient> getById(Long id) {
-
-        return patientRepository.findById(id);
+    public ResponseEntity<Optional<Patient>> getById(Long id) {
+         if (patientRepository.existsById(id)){
+             return ResponseEntity.ok().body(patientRepository.findById(id));
+         }else {
+             return new  ResponseEntity("not found id patient :",HttpStatus.NOT_FOUND);
+         }
     }
 
     @Override
@@ -37,15 +40,16 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient updatePatient(Long id, PatientDto patientDto) {
+    public ResponseEntity<Patient> updatePatient(Long id, PatientDto patientDto) {
         if (patientRepository.existsById(id)) {
             Patient patient = patientRepository.findById(id).get();
             patient.setAddress(patientDto.getAddress());
             patient.setPhoneNumber(patientDto.getPhoneNumber());
             Patient newPatient = patientRepository.saveAndFlush(patient);
-            return newPatient;
+            return ResponseEntity.ok(newPatient);
+        }else {
+            return new ResponseEntity("patient not found :", HttpStatus.NOT_FOUND);
         }
-        return null;
     }
 
 
@@ -53,14 +57,15 @@ public class PatientServiceImpl implements PatientService {
     public ResponseEntity deleteById(Long id) {
         if (patientRepository.existsById(id)) {
             patientRepository.deleteById(id);
-            return null;
+            return ResponseEntity.status(201).body("deleteById success");
         } else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity(" not found :" + id,HttpStatus.NO_CONTENT);
         }
     }
 
     @Override
-    public void deleteAll() {
+    public ResponseEntity deleteAll() {
         patientRepository.deleteAll();
+        return new ResponseEntity("deleteAllPatient : ",HttpStatus.NO_CONTENT);
     }
 }

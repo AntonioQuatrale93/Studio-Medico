@@ -19,7 +19,7 @@ public class DoctorController {
 
 
     @PostMapping
-    public Doctor createDoctor(@RequestBody Doctor doctor) {
+    public ResponseEntity<Doctor> createDoctor(@RequestBody Doctor doctor) {
         return doctorServiceImpl.createDoctor(doctor);
 
     }
@@ -30,12 +30,12 @@ public class DoctorController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Doctor> getDoctorById(@PathVariable Long id) {
+    public ResponseEntity<Optional<Doctor>> getDoctorById(@PathVariable Long id) {
         return doctorServiceImpl.getById(id);
     }
 
     @PatchMapping("/{id}")
-    public Doctor updateDoctor(@PathVariable Long id, @RequestBody DoctorDto doctorDto) {
+    public ResponseEntity<Doctor> updateDoctor(@PathVariable Long id, @RequestBody DoctorDto doctorDto) {
         return doctorServiceImpl.updateDoctor(id, doctorDto);
     }
 

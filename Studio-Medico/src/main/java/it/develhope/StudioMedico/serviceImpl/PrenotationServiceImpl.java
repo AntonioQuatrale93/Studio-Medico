@@ -29,24 +29,28 @@ public class PrenotationServiceImpl implements PrenotationService {
 
 
     @Override
-    public Prenotation createPrenotation(Prenotation prenotation, long doctorId, long patientId) {
+    public ResponseEntity<Prenotation> createPrenotation(Prenotation prenotation, long doctorId, long patientId) {
         if (doctorsRepository.existsById(doctorId)) {
             prenotation.setDoctor(doctorsRepository.getReferenceById(doctorId));
         } else {
-            new Exception("doctor not found");
+            return new ResponseEntity("doctor not found :",HttpStatus.NOT_FOUND);
         }
         if (patientRepository.existsById(patientId)) {
             prenotation.setPatient(patientRepository.getReferenceById(patientId));
         } else {
-            new Exception("patient not found");
+           return new ResponseEntity("patient not found :", HttpStatus.NOT_FOUND);
         }
         prenotation.setPrenotationStatus(PrenotationStatus.BOOKED);
-        return prenotationRepository.save(prenotation);
+        return ResponseEntity.ok(prenotationRepository.save(prenotation));
     }
 
     @Override
-    public Optional<Prenotation> getPrenotationById(long id) {
-        return prenotationRepository.findById(id);
+    public ResponseEntity<Optional<Prenotation>> getPrenotationById(long id) {
+        if (prenotationRepository.existsById(id)){
+            return ResponseEntity.ok().body(prenotationRepository.findById(id));
+        }else {
+            return new ResponseEntity("not found prenotation :",HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override
@@ -55,7 +59,7 @@ public class PrenotationServiceImpl implements PrenotationService {
     }
 
     @Override
-    public Prenotation updatePrenotation(long id, PrenotationDto prenotationDto) {
+    public ResponseEntity<Prenotation> updatePrenotation(long id, PrenotationDto prenotationDto) {
         if (prenotationRepository.existsById(id)) {
             Prenotation prenotation = prenotationRepository.findById(id).get();
             if (prenotationDto.getDate() != null) {
@@ -71,9 +75,9 @@ public class PrenotationServiceImpl implements PrenotationService {
                 prenotation.setPatient(patientRepository.getReferenceById(prenotationDto.getPatientId()));
             }
             Prenotation updatedPrenotation = prenotationRepository.saveAndFlush(prenotation);
-            return updatedPrenotation;
+            return ResponseEntity.ok(updatedPrenotation);
         }
-        return null;
+        return new ResponseEntity("secretary not found :" + id,HttpStatus.NOT_FOUND);
     }
 
 
@@ -81,16 +85,15 @@ public class PrenotationServiceImpl implements PrenotationService {
     public ResponseEntity deletePrenotationById(long id) {
         if (prenotationRepository.existsById(id)) {
             prenotationRepository.deleteById(id);
-            return null;
+            return ResponseEntity.status(201).body("deleteById success");
         } else {
-            new Exception("prenotation not found");
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+          return new ResponseEntity("not found :" + id ,HttpStatus.NO_CONTENT);
         }
     }
 
     @Override
-    public void deleteAllPrenotation() {
+    public ResponseEntity deleteAllPrenotation() {
         prenotationRepository.deleteAll();
-
+      return new ResponseEntity("deleteAllPrenotation :",HttpStatus.NO_CONTENT);
     }
 }

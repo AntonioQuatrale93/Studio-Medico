@@ -4,6 +4,7 @@ import it.develhope.StudioMedico.dto.PatientDto;
 import it.develhope.StudioMedico.entities.Patient;
 import it.develhope.StudioMedico.serviceImpl.PatientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class PatientController {
 
 
     @PostMapping
-    public Patient createPatient(@RequestBody Patient patient) {
+    public ResponseEntity<Patient> createPatient(@RequestBody Patient patient) {
         return patientServiceImpl.createPatient(patient);
     }
 
@@ -27,26 +28,21 @@ public class PatientController {
     public List<Patient> getAllPatient() {
         return patientServiceImpl.getAllPatients();
     }
-
-
+    
     @GetMapping("/{id}")
-    public Optional<Patient> getPatientById(@PathVariable long id) {
+    public ResponseEntity<Optional<Patient>> getPatientById(@PathVariable long id) {
         return patientServiceImpl.getById(id);
     }
-
     @PatchMapping
-    public Patient updatePatient(@PathVariable long id, @RequestBody PatientDto patientDto) {
+    public ResponseEntity<Patient> updatePatient(@PathVariable long id, @RequestBody PatientDto patientDto) {
         return patientServiceImpl.updatePatient(id, patientDto);
     }
-
     @DeleteMapping("/{id}")
     public void deletePatientById(@PathVariable long id) {
         patientServiceImpl.deleteById(id);
     }
-
     @DeleteMapping
     public void deleteAllPatient() {
         patientServiceImpl.deleteAll();
     }
-
 }

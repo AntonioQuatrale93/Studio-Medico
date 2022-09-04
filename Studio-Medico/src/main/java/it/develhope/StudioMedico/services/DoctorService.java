@@ -10,16 +10,16 @@ import java.util.Optional;
 public interface DoctorService {
 
 
-    Doctor createDoctor(Doctor doctor);
+    ResponseEntity<Doctor> createDoctor(Doctor doctor);
 
-    Optional<Doctor> getById(Long id);
+    ResponseEntity<Optional<Doctor>> getById(Long id);
 
     List<Doctor> getAllDoctors();
 
-    Doctor updateDoctor(Long id, DoctorDto doctorDto);
+    ResponseEntity<Doctor> updateDoctor(Long id, DoctorDto doctorDto);
 
     ResponseEntity deleteById(Long id);
 
-    void deleteAll();
+    ResponseEntity deleteAll();
 }
 

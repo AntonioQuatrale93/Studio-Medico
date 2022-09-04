@@ -5,6 +5,7 @@ import java.util.List;
 import it.develhope.StudioMedico.dto.SecretaryDto;
 import it.develhope.StudioMedico.serviceImpl.SecretaryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import it.develhope.StudioMedico.entities.Secretary;
@@ -25,19 +26,19 @@ public class SecretaryController {
 
 
     @PostMapping
-    Secretary createSecretary(@RequestBody Secretary secretary) {
+    ResponseEntity<Secretary> createSecretary(@RequestBody Secretary secretary) {
         return secretaryServiceImpl.createSecretary(secretary);
     }
 
     @PatchMapping("/{id}")
-    Secretary replaceSecretary(@RequestBody SecretaryDto secretaryDto, @PathVariable Long id) {
+    ResponseEntity<Secretary> replaceSecretary(@RequestBody SecretaryDto secretaryDto, @PathVariable Long id) {
         return secretaryServiceImpl.updateSecretary(id, secretaryDto);
 
     }
 
     @DeleteMapping()
-    void deleteSecretary() {
-        secretaryServiceImpl.deleteSecretary();
+    ResponseEntity deleteSecretary() {
+        return secretaryServiceImpl.deleteSecretary();
     }
 
 }
