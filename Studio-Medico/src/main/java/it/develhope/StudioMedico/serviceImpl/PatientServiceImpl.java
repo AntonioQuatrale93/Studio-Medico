@@ -1,7 +1,6 @@
 package it.develhope.StudioMedico.serviceImpl;
 
 import it.develhope.StudioMedico.dto.PatientDto;
-import it.develhope.StudioMedico.entities.Doctor;
 import it.develhope.StudioMedico.entities.Patient;
 import it.develhope.StudioMedico.entities.Prenotation;
 import it.develhope.StudioMedico.entities.PrenotationStatus;
@@ -31,14 +30,18 @@ public class PatientServiceImpl implements PatientService {
 
 
     @Override
-    public Patient createPatient(Patient patient) {
-        return patientRepository.save(patient);
+    public ResponseEntity<Patient> createPatient(Patient patient) {
+        patientRepository.save(patient);
+        return ResponseEntity.status(201).body(patient);
     }
 
     @Override
-    public Optional<Patient> getById(Long id) {
-
-        return patientRepository.findById(id);
+    public ResponseEntity<Optional<Patient>> getById(Long id) {
+         if (patientRepository.existsById(id)){
+             return ResponseEntity.ok().body(patientRepository.findById(id));
+         }else {
+             return new  ResponseEntity("not found id patient :" + id,HttpStatus.NOT_FOUND);
+         }
     }
 
     @Override
@@ -47,7 +50,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient updatePatient(Long id, PatientDto patientDto) {
+    public ResponseEntity<Patient> updatePatient(Long id, PatientDto patientDto) {
         if (patientRepository.existsById(id)) {
             Patient patient = patientRepository.findById(id).get();
             if(patientDto.getName() != null){
@@ -72,20 +75,21 @@ public class PatientServiceImpl implements PatientService {
                 patient.setAddress(patientDto.getAddress());
             }
             Patient newPatient = patientRepository.saveAndFlush(patient);
-            return newPatient;
+            return ResponseEntity.ok(newPatient);
+        }else {
+            return new ResponseEntity("patient not found :", HttpStatus.NOT_FOUND);
         }
-        return null;
     }
 
     @Override
-    public Patient assignDoctor(Long patientId, Long doctorId) {
+    public ResponseEntity<Patient> assignDoctor(Long patientId, Long doctorId) {
         if(patientRepository.existsById(patientId)){
             Patient patient = patientRepository.findById(patientId).get();
             patient.setDoctor(doctorsRepository.findById(doctorId).get());
             Patient updatedPatient = patientRepository.saveAndFlush(patient);
-            return updatedPatient;
+            return ResponseEntity.ok(updatedPatient);
         }
-        return null;
+        return new ResponseEntity("not found patient :"+ patientId,HttpStatus.NOT_FOUND);
     }
 
 
@@ -93,19 +97,20 @@ public class PatientServiceImpl implements PatientService {
     public ResponseEntity deleteById(Long id) {
         if (patientRepository.existsById(id)) {
             patientRepository.deleteById(id);
-            return null;
+            return ResponseEntity.status(201).body("deleteById success");
         } else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity(" not found :" + id,HttpStatus.NO_CONTENT);
         }
     }
 
     @Override
-    public void deleteAll() {
+    public ResponseEntity deleteAll() {
         patientRepository.deleteAll();
+        return new ResponseEntity("deleteAllPatient : ",HttpStatus.NO_CONTENT);
     }
 
 
-    public Prenotation scheduleVisit(Prenotation prenotation, long patientId, long doctorId){
+    public ResponseEntity<Prenotation> scheduleVisit(Prenotation prenotation, long patientId, long doctorId){
         if (doctorsRepository.existsById(doctorId)) {
             prenotation.setDoctor(doctorsRepository.getReferenceById(doctorId));
         } else {
@@ -118,7 +123,7 @@ public class PatientServiceImpl implements PatientService {
         }
         prenotation.setPrenotationStatus(PrenotationStatus.BOOKED);
         prenotation.setStatusRecord(prenotation.getPrenotationStatus().toString());
-        return prenotationRepository.save(prenotation);
+        return ResponseEntity.status(HttpStatus.CREATED).body(prenotationRepository.save(prenotation));
     }
     }
 

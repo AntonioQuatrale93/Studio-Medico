@@ -29,13 +29,18 @@ public class DoctorServiceImpl implements DoctorService {
 
 
     @Override
-    public Doctor createDoctor(Doctor doctor) {
-        return doctorsRepository.save(doctor);
+    public ResponseEntity<Doctor> createDoctor(Doctor doctor) {
+        doctorsRepository.save(doctor);
+        return ResponseEntity.status(201).body(doctor);
     }
 
     @Override
-    public Optional<Doctor> getById(Long id) {
-        return doctorsRepository.findById(id);
+    public ResponseEntity<Optional<Doctor>> getById(Long id) {
+        if (doctorsRepository.existsById(id)){
+            return ResponseEntity.ok().body(doctorsRepository.findById(id));
+        }else {
+            return new ResponseEntity("not found id doctor : "+id, HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override
@@ -58,7 +63,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Doctor updateDoctor(Long id, DoctorDto doctorDto) {
+    public ResponseEntity<Doctor> updateDoctor(Long id, DoctorDto doctorDto) {
         if (doctorsRepository.existsById(id)) {
             Doctor doctor = doctorsRepository.findById(id).get();
             if (doctorDto.getName() != null) {
@@ -84,20 +89,21 @@ public class DoctorServiceImpl implements DoctorService {
             }
 
             Doctor newDoctor = doctorsRepository.saveAndFlush(doctor);
-            return newDoctor;
+            return ResponseEntity.ok(newDoctor);
+        }else {
+            return new ResponseEntity("doctor not found : ", HttpStatus.NOT_FOUND);
+         }
         }
-        return null;
-    }
 
     @Override
-    public Doctor assignSecretary(Long doctorId, Long secretaryId) {
+    public ResponseEntity<Doctor> assignSecretary(Long doctorId, Long secretaryId) {
         if (secretaryRepository.existsById(secretaryId)) {
             Doctor doctor = doctorsRepository.findById(doctorId).get();
             doctor.setSecretary(secretaryRepository.findById(secretaryId).get());
             Doctor updatedDoctor = doctorsRepository.saveAndFlush(doctor);
-            return updatedDoctor;
+            return ResponseEntity.ok(updatedDoctor);
         }
-        return null;
+        return new ResponseEntity("not found doctor :" + doctorId,HttpStatus.NOT_FOUND);
     }
 
 
@@ -105,14 +111,15 @@ public class DoctorServiceImpl implements DoctorService {
     public ResponseEntity deleteById(Long id) {
         if (doctorsRepository.existsById(id)) {
             doctorsRepository.deleteById(id);
-            return null;
+            return ResponseEntity.status(201).body("deleteById success");
         } else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity(" not found: " + id,HttpStatus.NO_CONTENT);
         }
     }
 
     @Override
-    public void deleteAll() {
+    public ResponseEntity deleteAll() {
         doctorsRepository.deleteAll();
+        return new ResponseEntity("secretaryDelete :",HttpStatus.NO_CONTENT);
     }
 }

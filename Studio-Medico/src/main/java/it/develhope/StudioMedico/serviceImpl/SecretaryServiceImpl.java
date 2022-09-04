@@ -6,6 +6,7 @@ import it.develhope.StudioMedico.entities.Secretary;
 import it.develhope.StudioMedico.repositories.SecretaryRepository;
 import it.develhope.StudioMedico.services.SecretaryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +15,20 @@ import java.util.List;
 @Service
 public class SecretaryServiceImpl implements SecretaryService {
 
+
     @Autowired
     private SecretaryRepository secretaryRepository;
 
 
     @Override
-    public Secretary createSecretary(Secretary secretary) {
-        return secretaryRepository.save(secretary);
+    public ResponseEntity<Secretary> createSecretary(Secretary secretary) {
+       secretaryRepository.save(secretary);
+        return ResponseEntity.status(201).body(secretary);
     }
 
     @Override
     public List<Secretary> getSecretary() {
+
         return secretaryRepository.findAll();
     }
 
@@ -34,9 +38,7 @@ public class SecretaryServiceImpl implements SecretaryService {
             return secretaryRepository.findById(id).get().getDoctorList();
         } throw new Exception("secretary not found");
     }
-
-    @Override
-    public Secretary updateSecretary(Long id, SecretaryDto secretaryDto) {
+    public ResponseEntity<Secretary> updateSecretary(Long id, SecretaryDto secretaryDto) {
         if (secretaryRepository.existsById(id)) {
             Secretary secretary = secretaryRepository.findById(id).get();
             if(secretaryDto.getName() != null){
@@ -59,13 +61,14 @@ public class SecretaryServiceImpl implements SecretaryService {
             }
 
             Secretary newSecretary = secretaryRepository.saveAndFlush(secretary);
-            return newSecretary;
+            return ResponseEntity.ok(newSecretary);
         }
-        return null;
+        return new ResponseEntity("not found secretary :" + id,HttpStatus.NOT_FOUND);
     }
 
     @Override
-    public void deleteSecretary() {
+    public ResponseEntity deleteSecretary() {
         secretaryRepository.deleteAll();
+        return new ResponseEntity("deleteAll :", HttpStatus.OK);
     }
 }

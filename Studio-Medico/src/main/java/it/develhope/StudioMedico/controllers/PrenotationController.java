@@ -19,7 +19,7 @@ public class PrenotationController {
 
 
     @PostMapping
-    public Prenotation createPrenotation(@RequestBody Prenotation prenotation, @RequestParam long doctorId, @RequestParam long patientId) {
+    public ResponseEntity<Prenotation> createPrenotation(@RequestBody Prenotation prenotation, @RequestParam long doctorId, @RequestParam long patientId) {
         return prenotationServiceImpl.createPrenotation(prenotation, doctorId, patientId);
     }
 
@@ -30,12 +30,12 @@ public class PrenotationController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Prenotation> getPrenotationById(@PathVariable long id) {
+    public ResponseEntity<Optional<Prenotation>> getPrenotationById(@PathVariable long id) {
         return prenotationServiceImpl.getPrenotationById(id);
     }
 
     @PatchMapping("/{id}")
-    public Prenotation updatePrenotation(@PathVariable long id, @RequestBody PrenotationDto prenotationDto) {
+    public ResponseEntity<Prenotation> updatePrenotation(@PathVariable long id, @RequestBody PrenotationDto prenotationDto) {
         return prenotationServiceImpl.updatePrenotation(id, prenotationDto);
     }
 

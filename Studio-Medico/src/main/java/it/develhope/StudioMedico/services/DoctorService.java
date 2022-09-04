@@ -13,22 +13,23 @@ import java.util.Set;
 public interface DoctorService {
 
 
-    Doctor createDoctor(Doctor doctor);
+    ResponseEntity<Doctor> createDoctor(Doctor doctor);
 
-    Optional<Doctor> getById(Long id);
+    ResponseEntity<Optional<Doctor>> getById(Long id);
 
     List<Doctor> getAllDoctors();
+
+    ResponseEntity<Doctor> updateDoctor(Long id, DoctorDto doctorDto);
 
     List<Prenotation> getAllPrenotation(Long id) throws Exception;
 
     List<Patient> getPatientList(Long doctorId) throws Exception;
 
-    Doctor updateDoctor(Long id, DoctorDto doctorDto);
 
-    Doctor assignSecretary(Long doctorId, Long secretaryId);
+    ResponseEntity<Doctor> assignSecretary(Long doctorId, Long secretaryId);
 
     ResponseEntity deleteById(Long id);
 
-    void deleteAll();
+    ResponseEntity deleteAll();
 }
 

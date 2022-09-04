@@ -7,13 +7,10 @@ import it.develhope.StudioMedico.entities.Prenotation;
 import it.develhope.StudioMedico.serviceImpl.DoctorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/doctor")
@@ -24,7 +21,7 @@ public class DoctorController {
 
 
     @PostMapping
-    public Doctor createDoctor(@RequestBody Doctor doctor) {
+    public ResponseEntity<Doctor> createDoctor(@RequestBody Doctor doctor) {
         return doctorServiceImpl.createDoctor(doctor);
 
     }
@@ -35,7 +32,7 @@ public class DoctorController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Doctor> getDoctorById(@PathVariable  Long id) {
+    public ResponseEntity<Optional<Doctor>> getDoctorById(@PathVariable Long id) {
         return doctorServiceImpl.getById(id);
     }
 
@@ -50,19 +47,20 @@ public class DoctorController {
     }
 
     @PatchMapping("/{id}")
-    public Doctor updateDoctor(@PathVariable Long id, @RequestBody DoctorDto doctorDto) {
+    public ResponseEntity<Doctor> updateDoctor(@PathVariable Long id, @RequestBody DoctorDto doctorDto) {
         return doctorServiceImpl.updateDoctor(id, doctorDto);
     }
 
     @PatchMapping
-    public Doctor assignSecretary(@RequestParam Long doctorId, @RequestParam Long secretaryId){
+    public ResponseEntity<Doctor> assignSecretary(@RequestParam Long doctorId, @RequestParam Long secretaryId){
         return doctorServiceImpl.assignSecretary(doctorId, secretaryId);
     }
 
     @DeleteMapping
-    public void deleteDoctor() {
-        doctorServiceImpl.deleteAll();
+    public ResponseEntity deleteDoctor() {
+        return doctorServiceImpl.deleteAll();
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity deleteDoctorById(@PathVariable Long id) {
         return doctorServiceImpl.deleteById(id);
