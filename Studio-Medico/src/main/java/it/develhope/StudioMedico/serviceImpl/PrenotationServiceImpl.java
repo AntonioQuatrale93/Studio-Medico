@@ -27,7 +27,13 @@ public class PrenotationServiceImpl implements PrenotationService {
     @Autowired
     private DoctorsRepository doctorsRepository;
 
-
+    /**
+     * Create entity prenotation
+     * @param prenotation
+     * @param doctorId
+     * @param patientId
+     * @return prenotation
+     */
     @Override
     public ResponseEntity<Prenotation> createPrenotation(Prenotation prenotation, long doctorId, long patientId) {
         if (doctorsRepository.existsById(doctorId)) {
@@ -44,6 +50,11 @@ public class PrenotationServiceImpl implements PrenotationService {
         return ResponseEntity.ok(prenotationRepository.save(prenotation));
     }
 
+    /**
+     * Return the prenotation by id
+     * @param id
+     * @return prenotation
+     */
     @Override
     public ResponseEntity<Optional<Prenotation>> getPrenotationById(long id) {
         if (prenotationRepository.existsById(id)) {
@@ -53,11 +64,22 @@ public class PrenotationServiceImpl implements PrenotationService {
         }
     }
 
+    /**
+     * Return all the prenotations
+     * @return prenotations
+     */
     @Override
     public List<Prenotation> getAllPrenotation() {
         return prenotationRepository.findAll();
     }
 
+
+    /**
+     * Modifica un entità prenotation
+     * @param id
+     * @param prenotationDto
+     * @return updatedPrenotation
+     */
     @Override
     public ResponseEntity<Prenotation> updatePrenotation(long id, PrenotationDto prenotationDto) {
         if (prenotationRepository.existsById(id)) {
@@ -82,7 +104,10 @@ public class PrenotationServiceImpl implements PrenotationService {
         return new ResponseEntity("Prenotation with id " + id + " not found", HttpStatus.NOT_FOUND);
     }
 
-
+    /**
+     * Elimina un entità prenotation tramite id
+     * @param id
+     */
     @Override
     public ResponseEntity deletePrenotationById(long id) {
         if (prenotationRepository.existsById(id)) {
@@ -93,6 +118,9 @@ public class PrenotationServiceImpl implements PrenotationService {
         }
     }
 
+    /**
+     * Elimina tutte le entità prenotation
+     */
     @Override
     public ResponseEntity deleteAllPrenotation() {
         prenotationRepository.deleteAll();
