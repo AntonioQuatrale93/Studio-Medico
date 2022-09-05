@@ -13,11 +13,11 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "patient_id")
     private long patientId;
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "surname")
+    @Column(name = "surname", nullable = false)
     private String surname;
-    @Column(name = "fiscal_code")
+    @Column(name = "fiscal_code", nullable = false)
     private String fiscalCode;
     @Column(name = "age")
     private Integer age;

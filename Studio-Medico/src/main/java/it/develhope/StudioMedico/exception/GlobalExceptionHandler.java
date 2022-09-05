@@ -29,7 +29,7 @@ public class GlobalExceptionHandler extends RuntimeException {
             ConstraintViolationException.class, DataIntegrityViolationException.class, SQLIntegrityConstraintViolationException.class
     })
     public ResponseEntity<?> notFoundHandler(Exception e) {
-        ErrorDetail errorModel = new ErrorDetail(409, "this email is already used");
+        ErrorDetail errorModel = new ErrorDetail(409, "something is wrong in your request");
         logger.error("ERROR_DETAIL: ", e);
         return new ResponseEntity<>(errorModel, HttpStatus.CONFLICT);
     }

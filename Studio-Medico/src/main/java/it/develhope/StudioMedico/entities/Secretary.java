@@ -15,11 +15,11 @@ public class Secretary {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "secretary_id")
     private long secretaryId;
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "surname")
+    @Column(name = "surname", nullable = false)
     private String surname;
-    @Column(name = "fiscal_code")
+    @Column(name = "fiscal_code", nullable = false)
     private String fiscalCode;
     @Column(unique = true, nullable = false, name = "email")
     private String email;

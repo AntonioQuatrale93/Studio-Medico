@@ -16,6 +16,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This class implement all the method of the Interface of the Patient patientService
+ */
+
 @Service
 public class PatientServiceImpl implements PatientService {
 
@@ -28,13 +32,22 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     private PrenotationRepository prenotationRepository;
 
-
+    /**
+     * This API create and save a patient in his repository
+     * @param patient
+     * @return the saved patient;
+     */
     @Override
     public ResponseEntity<Patient> createPatient(Patient patient) {
         patientRepository.save(patient);
         return ResponseEntity.status(201).body(patient);
     }
 
+    /**
+     * This API find a patient in the repository by Id
+     * @param id
+     * @return the founded patient
+     */
     @Override
     public ResponseEntity<Optional<Patient>> getById(Long id) {
         if (patientRepository.existsById(id)) {
@@ -44,11 +57,22 @@ public class PatientServiceImpl implements PatientService {
         }
     }
 
+    /**
+     * This Api return the list of all the patient
+     * @return the list of patient
+     */
     @Override
     public List<Patient> getAllPatients() {
         return patientRepository.findAll();
     }
 
+
+    /**
+     * This API update the parameter of a patient found by ID
+     * @param id
+     * @param patientDto
+     * @return a response entity with the updated  patient
+     */
     @Override
     public ResponseEntity<Patient> updatePatient(Long id, PatientDto patientDto) {
         if (patientRepository.existsById(id)) {
@@ -74,13 +98,19 @@ public class PatientServiceImpl implements PatientService {
             if (patientDto.getAddress() != null) {
                 patient.setAddress(patientDto.getAddress());
             }
-            Patient newPatient = patientRepository.saveAndFlush(patient);
-            return ResponseEntity.ok(newPatient);
+            Patient updatedPatient = patientRepository.saveAndFlush(patient);
+            return ResponseEntity.ok(updatedPatient);
         } else {
             return new ResponseEntity("no patient found with id: " + id , HttpStatus.NOT_FOUND);
         }
     }
 
+    /**
+     * This API assign a doctor to a patient
+     * @param patientId
+     * @param doctorId
+     * @return a response entity with the updated patient
+     */
     @Override
     public ResponseEntity<Patient> assignDoctor(Long patientId, Long doctorId) {
         if (patientRepository.existsById(patientId) && doctorsRepository.existsById(doctorId)) {
@@ -92,7 +122,11 @@ public class PatientServiceImpl implements PatientService {
         return new ResponseEntity("no patient found with id :" + patientId, HttpStatus.NOT_FOUND);
     }
 
-
+    /**
+     * This Api delete a patient found by Id
+     * @param id
+     * @return a ResponseEntity with the response code
+     */
     @Override
     public ResponseEntity deleteById(Long id) {
         if (patientRepository.existsById(id)) {
@@ -103,12 +137,23 @@ public class PatientServiceImpl implements PatientService {
         }
     }
 
+    /**
+     * This Api delete all the patients in the repository
+     * @return a ResponseEntity with the response code
+     */
     @Override
     public ResponseEntity deleteAll() {
         patientRepository.deleteAll();
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * This Api is used by the patiens to schedule a visit
+     * @param prenotation
+     * @param patientId
+     * @param doctorId
+     * @return prenotation
+     */
 
     public ResponseEntity<Prenotation> scheduleVisit(Prenotation prenotation, long patientId, long doctorId)  {
         if (doctorsRepository.existsById(doctorId)) {

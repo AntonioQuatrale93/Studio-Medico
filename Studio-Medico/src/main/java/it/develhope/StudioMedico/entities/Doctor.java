@@ -20,11 +20,11 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "doctor_id")
     private long doctorId;
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "surname")
+    @Column(name = "surname", nullable = false)
     private String surname;
-    @Column(name = "fiscal_code")
+    @Column(name = "fiscal_code", nullable = false)
     private String fiscalCode;
     @Column(unique = true, nullable = false, name = "email")
     private String email;

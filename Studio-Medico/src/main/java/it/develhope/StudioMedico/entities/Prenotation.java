@@ -3,7 +3,9 @@ package it.develhope.StudioMedico.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 
@@ -16,8 +18,10 @@ public class Prenotation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "prenotation_id")
     private long prenotationId;
-    @Column(name = "prenotation_date")
+    @Column(name = "prenotation_date", nullable = false)
     private LocalDate date;
+    @Column(name = "time", nullable = false)
+    private LocalTime time;
     @Column(name = "status")
     private PrenotationStatus prenotationStatus;
     /**
@@ -41,9 +45,10 @@ public class Prenotation {
     private Prenotation() {
     }
 
-    public Prenotation(long prenotationId, LocalDate date, PrenotationStatus prenotationStatus, String statusRecord, Patient patient, Doctor doctor) {
+    public Prenotation(long prenotationId, LocalDate date, PrenotationStatus prenotationStatus, String statusRecord, Patient patient, Doctor doctor, LocalTime time) {
         this.prenotationId = prenotationId;
         this.date = date;
+        this.time = time;
         this.prenotationStatus = prenotationStatus;
         this.statusRecord = statusRecord;
         this.patient = patient;
@@ -96,5 +101,13 @@ public class Prenotation {
 
     public void setStatusRecord(String statusRecord) {
         this.statusRecord = statusRecord;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 }

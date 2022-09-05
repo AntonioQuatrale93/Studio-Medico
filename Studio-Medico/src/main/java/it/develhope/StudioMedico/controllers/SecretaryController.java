@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import it.develhope.StudioMedico.entities.Secretary;
 
+/**
+ * This class use all the Api defined in SecretaryServiceImpl
+ */
 @RestController
 @RequestMapping("/secretary")
 public class SecretaryController {

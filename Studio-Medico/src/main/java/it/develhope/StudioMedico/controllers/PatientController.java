@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ *This class permit to use the Api implemented in the PatientServiceImpl
+ */
 @RestController
 @RequestMapping("/patient")
 public class PatientController {

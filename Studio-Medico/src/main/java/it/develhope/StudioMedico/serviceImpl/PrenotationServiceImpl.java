@@ -65,6 +65,9 @@ public class PrenotationServiceImpl implements PrenotationService {
             if (prenotationDto.getDate() != null) {
                 prenotation.setDate(prenotationDto.getDate());
             }
+            if (prenotationDto.getTime() != null) {
+                prenotation.setTime(prenotationDto.getTime());
+            }
             if (prenotationDto.getPrenotationStatus() != null) {
                 prenotation.setPrenotationStatus(prenotationDto.getPrenotationStatus());
                 prenotation.setStatusRecord(prenotation.getPrenotationStatus().toString());

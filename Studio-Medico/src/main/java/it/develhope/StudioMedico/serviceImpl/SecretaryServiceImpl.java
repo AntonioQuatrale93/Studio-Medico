@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * This class implement all the method defined by SecretaryService Interface
+ */
 @Service
 public class SecretaryServiceImpl implements SecretaryService {
 
@@ -19,19 +22,35 @@ public class SecretaryServiceImpl implements SecretaryService {
     @Autowired
     private SecretaryRepository secretaryRepository;
 
-
+    /**
+     * This API create and save a secretary in his repository
+     *
+     * @param secretary
+     * @return secretary
+     */
     @Override
     public ResponseEntity<Secretary> createSecretary(Secretary secretary) {
         secretaryRepository.save(secretary);
         return ResponseEntity.status(201).body(secretary);
     }
 
+    /**
+     * This API find all the secretary in the repository
+     *
+     * @return secretaryList
+     */
     @Override
     public List<Secretary> getSecretary() {
-
-        return secretaryRepository.findAll();
+        List<Secretary> secretaryList = secretaryRepository.findAll();
+        return secretaryList;
     }
 
+    /**
+     * This API return the list of doctor assigned to a secretary in his repository
+     * @param id
+     * @return doctorList
+     * @throws Exception
+     */
     @Override
     public List<Doctor> getAllDoctor(Long id) throws Exception {
         if (secretaryRepository.existsById(id)) {
@@ -41,6 +60,12 @@ public class SecretaryServiceImpl implements SecretaryService {
         throw new Exception("secretary not found");
     }
 
+    /**
+     * This API update a secretary by his DTO
+     * @param id
+     * @param secretaryDto
+     * @return updatedSecretary
+     */
     public ResponseEntity<Secretary> updateSecretary(Long id, SecretaryDto secretaryDto) {
         if (secretaryRepository.existsById(id)) {
             Secretary secretary = secretaryRepository.findById(id).get();
@@ -63,12 +88,17 @@ public class SecretaryServiceImpl implements SecretaryService {
                 secretary.setPhoneNumber(secretaryDto.getPhoneNumber());
             }
 
-            Secretary newSecretary = secretaryRepository.saveAndFlush(secretary);
-            return ResponseEntity.ok(newSecretary);
+            Secretary updatedSecretary = secretaryRepository.saveAndFlush(secretary);
+            return ResponseEntity.ok(updatedSecretary);
         }
         return new ResponseEntity("Secretary with id " + id + " not found", HttpStatus.NOT_FOUND);
     }
 
+
+    /**
+     * This API delete all the secretaries
+     * @return ResponseEntity
+     */
     @Override
     public ResponseEntity deleteSecretary() {
         secretaryRepository.deleteAll();
