@@ -12,7 +12,7 @@ import java.util.List;
 public class Secretary {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "secretary_id")
     private long secretaryId;
     @Column(name = "name")

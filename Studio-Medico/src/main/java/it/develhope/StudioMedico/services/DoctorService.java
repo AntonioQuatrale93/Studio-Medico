@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public interface DoctorService {
 
@@ -28,8 +27,8 @@ public interface DoctorService {
 
     ResponseEntity<Doctor> assignSecretary(Long doctorId, Long secretaryId);
 
-    ResponseEntity deleteById(Long id);
+    ResponseEntity<?> deleteById(Long id);
 
-    ResponseEntity deleteAll();
+    ResponseEntity<?> deleteAll();
 }
 

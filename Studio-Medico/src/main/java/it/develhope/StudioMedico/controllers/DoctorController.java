@@ -52,7 +52,7 @@ public class DoctorController {
     }
 
     @PatchMapping
-    public ResponseEntity<Doctor> assignSecretary(@RequestParam Long doctorId, @RequestParam Long secretaryId){
+    public ResponseEntity<Doctor> assignSecretary(@RequestParam Long doctorId, @RequestParam Long secretaryId) {
         return doctorServiceImpl.assignSecretary(doctorId, secretaryId);
     }
 

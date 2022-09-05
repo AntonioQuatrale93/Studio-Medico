@@ -16,10 +16,11 @@ public interface SecretaryService {
 
     List<Secretary> getSecretary();
 
-    ResponseEntity<Secretary>updateSecretary(Long id, SecretaryDto secretaryDto);
+    ResponseEntity<Secretary> updateSecretary(Long id, SecretaryDto secretaryDto);
+
     List<Doctor> getAllDoctor(Long id) throws Exception;
 
-    ResponseEntity deleteSecretary();
+    ResponseEntity<?> deleteSecretary();
 
 }
 

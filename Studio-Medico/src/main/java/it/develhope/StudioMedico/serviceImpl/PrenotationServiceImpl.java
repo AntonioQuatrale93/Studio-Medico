@@ -33,12 +33,12 @@ public class PrenotationServiceImpl implements PrenotationService {
         if (doctorsRepository.existsById(doctorId)) {
             prenotation.setDoctor(doctorsRepository.getReferenceById(doctorId));
         } else {
-            return new ResponseEntity("doctor not found :",HttpStatus.NOT_FOUND);
+            return new ResponseEntity("doctor not found", HttpStatus.NOT_FOUND);
         }
         if (patientRepository.existsById(patientId)) {
             prenotation.setPatient(patientRepository.getReferenceById(patientId));
         } else {
-           return new ResponseEntity("patient not found :", HttpStatus.NOT_FOUND);
+            return new ResponseEntity("patient not found", HttpStatus.NOT_FOUND);
         }
         prenotation.setPrenotationStatus(PrenotationStatus.BOOKED);
         return ResponseEntity.ok(prenotationRepository.save(prenotation));
@@ -46,10 +46,10 @@ public class PrenotationServiceImpl implements PrenotationService {
 
     @Override
     public ResponseEntity<Optional<Prenotation>> getPrenotationById(long id) {
-        if (prenotationRepository.existsById(id)){
+        if (prenotationRepository.existsById(id)) {
             return ResponseEntity.ok().body(prenotationRepository.findById(id));
-        }else {
-            return new ResponseEntity("not found prenotation :",HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity("Prenotation with id " + id + " not found", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -79,7 +79,7 @@ public class PrenotationServiceImpl implements PrenotationService {
             Prenotation updatedPrenotation = prenotationRepository.saveAndFlush(prenotation);
             return ResponseEntity.ok(updatedPrenotation);
         }
-        return new ResponseEntity("secretary not found :" + id,HttpStatus.NOT_FOUND);
+        return new ResponseEntity("Prenotation with id " + id + " not found", HttpStatus.NOT_FOUND);
     }
 
 
@@ -87,15 +87,15 @@ public class PrenotationServiceImpl implements PrenotationService {
     public ResponseEntity deletePrenotationById(long id) {
         if (prenotationRepository.existsById(id)) {
             prenotationRepository.deleteById(id);
-            return ResponseEntity.status(201).body("deleteById success");
+            return ResponseEntity.status(204).body("Prenotation with id: " + id + " deleted");
         } else {
-          return new ResponseEntity("not found :" + id ,HttpStatus.NO_CONTENT);
+            return new ResponseEntity("Prenotation with id " + id + " not found", HttpStatus.NOT_FOUND);
         }
     }
 
     @Override
     public ResponseEntity deleteAllPrenotation() {
         prenotationRepository.deleteAll();
-      return new ResponseEntity("deleteAllPrenotation :",HttpStatus.NO_CONTENT);
+        return new ResponseEntity("deleteAllPrenotation :", HttpStatus.NO_CONTENT);
     }
 }

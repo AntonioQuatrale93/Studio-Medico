@@ -22,7 +22,7 @@ public class SecretaryServiceImpl implements SecretaryService {
 
     @Override
     public ResponseEntity<Secretary> createSecretary(Secretary secretary) {
-       secretaryRepository.save(secretary);
+        secretaryRepository.save(secretary);
         return ResponseEntity.status(201).body(secretary);
     }
 
@@ -34,41 +34,44 @@ public class SecretaryServiceImpl implements SecretaryService {
 
     @Override
     public List<Doctor> getAllDoctor(Long id) throws Exception {
-        if(secretaryRepository.existsById(id)){
-            return secretaryRepository.findById(id).get().getDoctorList();
-        } throw new Exception("secretary not found");
+        if (secretaryRepository.existsById(id)) {
+            List<Doctor> doctorList = secretaryRepository.findById(id).get().getDoctorList();
+            return doctorList;
+        }
+        throw new Exception("secretary not found");
     }
+
     public ResponseEntity<Secretary> updateSecretary(Long id, SecretaryDto secretaryDto) {
         if (secretaryRepository.existsById(id)) {
             Secretary secretary = secretaryRepository.findById(id).get();
-            if(secretaryDto.getName() != null){
+            if (secretaryDto.getName() != null) {
                 secretary.setName(secretaryDto.getName());
             }
-            if(secretaryDto.getSurname() != null){
+            if (secretaryDto.getSurname() != null) {
                 secretary.setSurname(secretaryDto.getSurname());
             }
-            if(secretaryDto.getFiscalCode() != null){
+            if (secretaryDto.getFiscalCode() != null) {
                 secretary.setFiscalCode(secretaryDto.getFiscalCode());
             }
-            if(secretaryDto.getEmail() != null){
+            if (secretaryDto.getEmail() != null) {
                 secretary.setEmail(secretaryDto.getEmail());
             }
-            if(secretaryDto.getAddress() != null){
+            if (secretaryDto.getAddress() != null) {
                 secretary.setAddress(secretaryDto.getAddress());
             }
-            if(secretaryDto.getPhoneNumber() != null){
+            if (secretaryDto.getPhoneNumber() != null) {
                 secretary.setPhoneNumber(secretaryDto.getPhoneNumber());
             }
 
             Secretary newSecretary = secretaryRepository.saveAndFlush(secretary);
             return ResponseEntity.ok(newSecretary);
         }
-        return new ResponseEntity("not found secretary :" + id,HttpStatus.NOT_FOUND);
+        return new ResponseEntity("Secretary with id " + id + " not found", HttpStatus.NOT_FOUND);
     }
 
     @Override
     public ResponseEntity deleteSecretary() {
         secretaryRepository.deleteAll();
-        return new ResponseEntity("deleteAll :", HttpStatus.OK);
+        return new ResponseEntity("All prenotation deleted", HttpStatus.NO_CONTENT);
     }
 }

@@ -13,7 +13,7 @@ import java.util.Date;
 public class Prenotation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "prenotation_id")
     private long prenotationId;
     @Column(name = "prenotation_date")

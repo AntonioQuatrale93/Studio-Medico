@@ -34,6 +34,7 @@ public class PatientController {
     public ResponseEntity<Optional<Patient>> getPatientById(@PathVariable long id) {
         return patientServiceImpl.getById(id);
     }
+
     @PatchMapping("/{id}")
     public ResponseEntity<Patient> updatePatient(@PathVariable long id, @RequestBody PatientDto patientDto) {
         return patientServiceImpl.updatePatient(id, patientDto);
@@ -45,12 +46,13 @@ public class PatientController {
     }
 
     @DeleteMapping("/{id}")
-    public void deletePatientById(@PathVariable long id) {
-        patientServiceImpl.deleteById(id);
+    public ResponseEntity deletePatientById(@PathVariable long id) {
+        return patientServiceImpl.deleteById(id);
     }
+
     @DeleteMapping
-    public void deleteAllPatient() {
-        patientServiceImpl.deleteAll();
+    public ResponseEntity deleteAllPatient() {
+        return patientServiceImpl.deleteAll();
     }
 
     @PostMapping("/prenotation/{patientId}")

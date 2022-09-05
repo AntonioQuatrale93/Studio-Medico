@@ -10,17 +10,17 @@ import java.util.Optional;
 public interface PrenotationService {
 
 
-     ResponseEntity<Prenotation> createPrenotation(Prenotation prenotation, long patientId, long doctorId);
+    ResponseEntity<Prenotation> createPrenotation(Prenotation prenotation, long patientId, long doctorId);
 
-     ResponseEntity<Optional<Prenotation>> getPrenotationById(long id);
+    ResponseEntity<Optional<Prenotation>> getPrenotationById(long id);
 
-     List<Prenotation> getAllPrenotation();
+    List<Prenotation> getAllPrenotation();
 
-     ResponseEntity<Prenotation> updatePrenotation(long id, PrenotationDto prenotationDto);
+    ResponseEntity<Prenotation> updatePrenotation(long id, PrenotationDto prenotationDto);
 
-     ResponseEntity deletePrenotationById(long id);
+    ResponseEntity<?> deletePrenotationById(long id);
 
-     ResponseEntity deleteAllPrenotation();
+    ResponseEntity<?> deleteAllPrenotation();
 
 
 }

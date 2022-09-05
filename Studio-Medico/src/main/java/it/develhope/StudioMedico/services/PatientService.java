@@ -19,7 +19,7 @@ public interface PatientService {
 
     ResponseEntity<Patient> assignDoctor(Long patientId, Long doctorId);
 
-    ResponseEntity deleteById(Long id);
+    ResponseEntity<?> deleteById(Long id);
 
-    ResponseEntity deleteAll();
+    ResponseEntity<?> deleteAll();
 }

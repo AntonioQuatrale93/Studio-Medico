@@ -37,11 +37,11 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public ResponseEntity<Optional<Patient>> getById(Long id) {
-         if (patientRepository.existsById(id)){
-             return ResponseEntity.ok().body(patientRepository.findById(id));
-         }else {
-             return new  ResponseEntity("not found id patient :" + id,HttpStatus.NOT_FOUND);
-         }
+        if (patientRepository.existsById(id)) {
+            return ResponseEntity.ok().body(patientRepository.findById(id));
+        } else {
+            return new ResponseEntity("no patient found with id :" + id, HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override
@@ -53,43 +53,43 @@ public class PatientServiceImpl implements PatientService {
     public ResponseEntity<Patient> updatePatient(Long id, PatientDto patientDto) {
         if (patientRepository.existsById(id)) {
             Patient patient = patientRepository.findById(id).get();
-            if(patientDto.getName() != null){
+            if (patientDto.getName() != null) {
                 patient.setName(patientDto.getName());
             }
-            if(patientDto.getSurname() != null){
+            if (patientDto.getSurname() != null) {
                 patient.setSurname(patientDto.getSurname());
             }
-            if(patientDto.getFiscalCode() != null){
+            if (patientDto.getFiscalCode() != null) {
                 patient.setFiscalCode(patientDto.getFiscalCode());
             }
-            if(patientDto.getAge() != null){
+            if (patientDto.getAge() != null) {
                 patient.setAge(patientDto.getAge());
             }
-            if(patientDto.getEmail() != null){
+            if (patientDto.getEmail() != null) {
                 patient.setEmail(patientDto.getEmail());
             }
-            if(patientDto.getPhoneNumber() != null){
+            if (patientDto.getPhoneNumber() != null) {
                 patient.setPhoneNumber(patientDto.getPhoneNumber());
             }
-            if(patientDto.getAddress() != null){
+            if (patientDto.getAddress() != null) {
                 patient.setAddress(patientDto.getAddress());
             }
             Patient newPatient = patientRepository.saveAndFlush(patient);
             return ResponseEntity.ok(newPatient);
-        }else {
-            return new ResponseEntity("patient not found :", HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity("no patient found with id: " + id , HttpStatus.NOT_FOUND);
         }
     }
 
     @Override
     public ResponseEntity<Patient> assignDoctor(Long patientId, Long doctorId) {
-        if(patientRepository.existsById(patientId)){
+        if (patientRepository.existsById(patientId) && doctorsRepository.existsById(doctorId)) {
             Patient patient = patientRepository.findById(patientId).get();
             patient.setDoctor(doctorsRepository.findById(doctorId).get());
             Patient updatedPatient = patientRepository.saveAndFlush(patient);
             return ResponseEntity.ok(updatedPatient);
         }
-        return new ResponseEntity("not found patient :"+ patientId,HttpStatus.NOT_FOUND);
+        return new ResponseEntity("no patient found with id :" + patientId, HttpStatus.NOT_FOUND);
     }
 
 
@@ -97,33 +97,33 @@ public class PatientServiceImpl implements PatientService {
     public ResponseEntity deleteById(Long id) {
         if (patientRepository.existsById(id)) {
             patientRepository.deleteById(id);
-            return ResponseEntity.status(201).body("deleteById success");
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         } else {
-            return new ResponseEntity(" not found :" + id,HttpStatus.NO_CONTENT);
+            return new ResponseEntity("no patient found with id :" + id, HttpStatus.NOT_FOUND);
         }
     }
 
     @Override
     public ResponseEntity deleteAll() {
         patientRepository.deleteAll();
-        return new ResponseEntity("deleteAllPatient : ",HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 
-    public ResponseEntity<Prenotation> scheduleVisit(Prenotation prenotation, long patientId, long doctorId){
+    public ResponseEntity<Prenotation> scheduleVisit(Prenotation prenotation, long patientId, long doctorId)  {
         if (doctorsRepository.existsById(doctorId)) {
             prenotation.setDoctor(doctorsRepository.getReferenceById(doctorId));
         } else {
-            new Exception("doctor not found");
+            return new ResponseEntity("doctor not found", HttpStatus.NOT_FOUND);
         }
         if (patientRepository.existsById(patientId)) {
             prenotation.setPatient(patientRepository.getReferenceById(patientId));
         } else {
-            new Exception("patient not found");
+            return new ResponseEntity("patient not found", HttpStatus.NOT_FOUND);
         }
         prenotation.setPrenotationStatus(PrenotationStatus.BOOKED);
         prenotation.setStatusRecord(prenotation.getPrenotationStatus().toString());
         return ResponseEntity.status(HttpStatus.CREATED).body(prenotationRepository.save(prenotation));
     }
-    }
+}
 
