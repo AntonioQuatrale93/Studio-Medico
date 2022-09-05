@@ -108,7 +108,7 @@ public class DoctorServiceImpl implements DoctorService {
     public ResponseEntity deleteById(Long id) {
         if (doctorsRepository.existsById(id)) {
             doctorsRepository.deleteById(id);
-            return new ResponseEntity("Doctor with id " + id + " deleted", HttpStatus.NO_CONTENT);
+            return new ResponseEntity( HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity("no doctor exist with id " + id, HttpStatus.NOT_FOUND);
         }
@@ -117,6 +117,6 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public ResponseEntity deleteAll() {
         doctorsRepository.deleteAll();
-        return new ResponseEntity("All doctor deleted", HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

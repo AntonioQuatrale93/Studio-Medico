@@ -87,7 +87,7 @@ public class PrenotationServiceImpl implements PrenotationService {
     public ResponseEntity deletePrenotationById(long id) {
         if (prenotationRepository.existsById(id)) {
             prenotationRepository.deleteById(id);
-            return ResponseEntity.status(204).body("Prenotation with id: " + id + " deleted");
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity("Prenotation with id " + id + " not found", HttpStatus.NOT_FOUND);
         }
@@ -96,6 +96,6 @@ public class PrenotationServiceImpl implements PrenotationService {
     @Override
     public ResponseEntity deleteAllPrenotation() {
         prenotationRepository.deleteAll();
-        return new ResponseEntity("deleteAllPrenotation :", HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

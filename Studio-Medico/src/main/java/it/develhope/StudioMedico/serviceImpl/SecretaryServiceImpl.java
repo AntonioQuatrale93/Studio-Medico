@@ -72,6 +72,6 @@ public class SecretaryServiceImpl implements SecretaryService {
     @Override
     public ResponseEntity deleteSecretary() {
         secretaryRepository.deleteAll();
-        return new ResponseEntity("All prenotation deleted", HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
