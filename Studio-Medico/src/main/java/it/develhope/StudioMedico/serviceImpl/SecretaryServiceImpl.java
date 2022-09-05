@@ -94,7 +94,6 @@ public class SecretaryServiceImpl implements SecretaryService {
         return new ResponseEntity("Secretary with id " + id + " not found", HttpStatus.NOT_FOUND);
     }
 
-
     /**
      * This API delete all the secretaries
      * @return ResponseEntity
