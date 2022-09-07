@@ -2,7 +2,7 @@ package it.develhope.StudioMedico.serviceImpl;
 
 import it.develhope.StudioMedico.dto.PrenotationDto;
 import it.develhope.StudioMedico.entities.Prenotation;
-import it.develhope.StudioMedico.entities.PrenotationStatus;
+import it.develhope.StudioMedico.entities.StatusRecord;
 import it.develhope.StudioMedico.repositories.DoctorsRepository;
 import it.develhope.StudioMedico.repositories.PatientRepository;
 import it.develhope.StudioMedico.repositories.PrenotationRepository;
@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +47,7 @@ public class PrenotationServiceImpl implements PrenotationService {
         } else {
             return new ResponseEntity("patient not found", HttpStatus.NOT_FOUND);
         }
-        prenotation.setPrenotationStatus(PrenotationStatus.BOOKED);
+        prenotation.setStatus(StatusRecord.ACTIVE);
         return ResponseEntity.ok(prenotationRepository.save(prenotation));
     }
 
@@ -70,8 +71,26 @@ public class PrenotationServiceImpl implements PrenotationService {
      */
     @Override
     public List<Prenotation> getAllPrenotation() {
-        return prenotationRepository.findAll();
+        List<Prenotation> activePrenotation = new ArrayList<>();
+        prenotationRepository.findAll().forEach(prenotation -> {
+            if(prenotation.getStatus() == StatusRecord.ACTIVE){
+                activePrenotation.add(prenotation);
+            }
+        });
+        return activePrenotation;
     }
+
+
+    public List<Prenotation> getAllDeletedPrenotation() {
+        List<Prenotation> activePrenotation = new ArrayList<>();
+        prenotationRepository.findAll().forEach(prenotation -> {
+            if(prenotation.getStatus() == StatusRecord.DELETED){
+                activePrenotation.add(prenotation);
+            }
+        });
+        return activePrenotation;
+    }
+
 
 
     /**
@@ -91,8 +110,8 @@ public class PrenotationServiceImpl implements PrenotationService {
                 prenotation.setTime(prenotationDto.getTime());
             }
             if (prenotationDto.getPrenotationStatus() != null) {
-                prenotation.setPrenotationStatus(prenotationDto.getPrenotationStatus());
-                prenotation.setStatusRecord(prenotation.getPrenotationStatus().toString());
+                prenotation.setStatus(prenotationDto.getPrenotationStatus());
+                prenotation.setTranslatedStatus(prenotation.getStatus().toString());
 
             }
             if (prenotationDto.getDoctorId() != null) {
@@ -114,7 +133,10 @@ public class PrenotationServiceImpl implements PrenotationService {
     @Override
     public ResponseEntity deletePrenotationById(long id) {
         if (prenotationRepository.existsById(id)) {
-            prenotationRepository.findById(id);
+            Prenotation prenotation = prenotationRepository.findById(id).get();
+            prenotation.setStatus(StatusRecord.DELETED);
+            prenotation.setTranslatedStatus(String.valueOf(prenotation.getStatus()));
+            prenotationRepository.saveAndFlush(prenotation);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity("Prenotation with id " + id + " not found", HttpStatus.NOT_FOUND);
@@ -126,7 +148,11 @@ public class PrenotationServiceImpl implements PrenotationService {
      */
     @Override
     public ResponseEntity deleteAllPrenotation() {
-        prenotationRepository.deleteAll();
+        prenotationRepository.findAll().forEach(prenotation -> {
+            prenotation.setStatus(StatusRecord.DELETED);
+            prenotation.setTranslatedStatus(String.valueOf(prenotation.getStatus()));
+            prenotationRepository.saveAndFlush(prenotation);
+        });
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

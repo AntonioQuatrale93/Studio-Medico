@@ -16,6 +16,8 @@ public interface SecretaryService {
 
     List<Secretary> getSecretary();
 
+    List<Secretary> getDeletedSecretary();
+
     ResponseEntity<Secretary> updateSecretary(Long id, SecretaryDto secretaryDto);
 
     List<Doctor> getAllDoctor(Long id) throws Exception;

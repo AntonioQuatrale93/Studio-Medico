@@ -1,5 +1,7 @@
 package it.develhope.StudioMedico.dto;
 
+import it.develhope.StudioMedico.entities.StatusRecord;
+
 /**
  * Questa classe contiene solo gli attributi modificabili del dottore, ovvero indirizzo e numero di telefono
  */
@@ -12,11 +14,12 @@ public class DoctorDto {
     private String specialization;
     private String phoneNumber;
     private String address;
+    private StatusRecord status;
 
     public DoctorDto() {
     }
 
-    public DoctorDto(String name, String surname, String fiscalCode, String email, String specialization, String phoneNumber, String address) {
+    public DoctorDto(StatusRecord status, String name, String surname, String fiscalCode, String email, String specialization, String phoneNumber, String address) {
         this.name = name;
         this.surname = surname;
         this.fiscalCode = fiscalCode;
@@ -24,6 +27,7 @@ public class DoctorDto {
         this.specialization = specialization;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.status = status;
     }
 
     public String getName() {
@@ -60,4 +64,7 @@ public class DoctorDto {
         return address;
     }
 
+    public StatusRecord getStatus() {
+        return status;
+    }
 }

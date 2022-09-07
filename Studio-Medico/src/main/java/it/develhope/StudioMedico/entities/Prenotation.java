@@ -1,12 +1,8 @@
 package it.develhope.StudioMedico.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 
 @Entity
@@ -23,13 +19,13 @@ public class Prenotation {
     @Column(name = "time", nullable = false)
     private LocalTime time;
     @Column(name = "status")
-    private PrenotationStatus prenotationStatus;
+    private StatusRecord status;
     /**
      * questo campo è una stringa che traduce il valore numerico di "status" in modo che sia leggibile su SQL
      * Ex: "status: 0 translated_status: BOOKED"
      */
     @Column(name = "translated_status")
-    private String statusRecord = String.valueOf(this.getPrenotationStatus());
+    private String translatedStatus = String.valueOf(this.getStatus());
 
     @ManyToOne
 
@@ -45,12 +41,12 @@ public class Prenotation {
     private Prenotation() {
     }
 
-    public Prenotation(long prenotationId, LocalDate date, PrenotationStatus prenotationStatus, String statusRecord, Patient patient, Doctor doctor, LocalTime time) {
+    public Prenotation(long prenotationId, LocalDate date, StatusRecord status, String translatedStatus, Patient patient, Doctor doctor, LocalTime time) {
         this.prenotationId = prenotationId;
         this.date = date;
         this.time = time;
-        this.prenotationStatus = prenotationStatus;
-        this.statusRecord = statusRecord;
+        this.status = status;
+        this.translatedStatus = String.valueOf(this.getStatus());;
         this.patient = patient;
         this.doctor = doctor;
     }
@@ -87,20 +83,20 @@ public class Prenotation {
         this.doctor = doctor;
     }
 
-    public PrenotationStatus getPrenotationStatus() {
-        return prenotationStatus;
+    public StatusRecord getStatus() {
+        return status;
     }
 
-    public void setPrenotationStatus(PrenotationStatus prenotationStatus) {
-        this.prenotationStatus = prenotationStatus;
+    public void setStatus(StatusRecord status) {
+        this.status = status;
     }
 
-    public String getStatusRecord() {
-        return statusRecord;
+    public String getTranslatedStatus() {
+        return translatedStatus;
     }
 
-    public void setStatusRecord(String statusRecord) {
-        this.statusRecord = statusRecord;
+    public void setTranslatedStatus(String translatedStatus) {
+        this.translatedStatus = translatedStatus;
     }
 
     public LocalTime getTime() {

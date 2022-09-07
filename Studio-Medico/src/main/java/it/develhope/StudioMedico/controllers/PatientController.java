@@ -35,6 +35,11 @@ public class PatientController {
         return patientServiceImpl.getAllPatients();
     }
 
+    @GetMapping("/deleted")
+    public List<Patient> getAllDeletedPatient() {
+        return patientServiceImpl.getAllDeletedPatients();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Patient>> getPatientById(@PathVariable long id) {
         return patientServiceImpl.getById(id);
@@ -50,19 +55,19 @@ public class PatientController {
         return patientServiceImpl.assignDoctor(patientId, doctorId);
     }
 
-    @DeleteMapping("/{id}")
+    @PatchMapping("/delete/{id}")
     public ResponseEntity deletePatientById(@PathVariable long id) {
         return patientServiceImpl.deleteById(id);
     }
 
-    @DeleteMapping
+    @PatchMapping("/delete")
     public ResponseEntity deleteAllPatient() {
         return patientServiceImpl.deleteAll();
     }
 
-    @PostMapping("/prenotation/{patientId}")
-    public ResponseEntity<Prenotation> scheduleVisit(@PathVariable long patientId, @RequestParam long doctorId, @RequestBody Prenotation prenotation) {
-        return patientServiceImpl.bookVisit(prenotation, patientId, doctorId);
+    @PostMapping("/prenotation/{id}")
+    public ResponseEntity<Prenotation> scheduleVisit(@PathVariable long id, @RequestParam long doctorId, @RequestBody Prenotation prenotation) {
+        return patientServiceImpl.bookVisit(prenotation, id, doctorId);
     }
 
 

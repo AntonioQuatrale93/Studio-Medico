@@ -28,6 +28,12 @@ public class SecretaryController {
         return secretaryServiceImpl.getSecretary();
     }
 
+    @GetMapping("/deleted")
+    List<Secretary> getDeletedSecretary() {
+        return secretaryServiceImpl.getDeletedSecretary();
+    }
+
+
     @GetMapping("/doctor/{id}")
     public List<Doctor> getAllDoctor(@PathVariable Long id) throws Exception {
         return secretaryServiceImpl.getAllDoctor(id);
@@ -45,7 +51,7 @@ public class SecretaryController {
 
     }
 
-    @DeleteMapping()
+    @PatchMapping("/delete")
     ResponseEntity deleteSecretary() {
         return secretaryServiceImpl.deleteSecretary();
     }

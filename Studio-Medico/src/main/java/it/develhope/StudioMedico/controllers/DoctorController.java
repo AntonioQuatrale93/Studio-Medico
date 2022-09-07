@@ -31,6 +31,11 @@ public class DoctorController {
         return doctorServiceImpl.getAllDoctors();
     }
 
+    @GetMapping("/deleted")
+    public List<Doctor> getAllDeletedDoctor() {
+        return doctorServiceImpl.getAllDeletedDoctors();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Doctor>> getDoctorById(@PathVariable Long id) {
         return doctorServiceImpl.getById(id);
@@ -38,12 +43,12 @@ public class DoctorController {
 
     @GetMapping("/list/patient/{doctorId}")
     public List<Patient> getDoctorPatients(@PathVariable Long doctorId) throws Exception {
-        return doctorServiceImpl.getPatientList(doctorId);
+        return doctorServiceImpl.getDoctorPatientList(doctorId);
     }
 
     @GetMapping("/list/prenotation/{doctorId}")
     public List<Prenotation> getPrenotation(@PathVariable Long doctorId) throws Exception {
-        return doctorServiceImpl.getAllPrenotation(doctorId);
+        return doctorServiceImpl.getAllDoctorPrenotation(doctorId);
     }
 
     @PatchMapping("/{id}")
@@ -56,12 +61,12 @@ public class DoctorController {
         return doctorServiceImpl.assignSecretary(doctorId, secretaryId);
     }
 
-    @DeleteMapping
+    @PatchMapping("/delete")
     public ResponseEntity deleteDoctor() {
         return doctorServiceImpl.deleteAll();
     }
 
-    @DeleteMapping("/{id}")
+    @PatchMapping("delete/{id}")
     public ResponseEntity deleteDoctorById(@PathVariable Long id) {
         return doctorServiceImpl.deleteById(id);
     }

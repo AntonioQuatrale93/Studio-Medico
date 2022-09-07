@@ -3,6 +3,7 @@ package it.develhope.StudioMedico.serviceImpl;
 import it.develhope.StudioMedico.dto.SecretaryDto;
 import it.develhope.StudioMedico.entities.Doctor;
 import it.develhope.StudioMedico.entities.Secretary;
+import it.develhope.StudioMedico.entities.StatusRecord;
 import it.develhope.StudioMedico.repositories.SecretaryRepository;
 import it.develhope.StudioMedico.services.SecretaryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +32,7 @@ public class SecretaryServiceImpl implements SecretaryService {
      */
     @Override
     public ResponseEntity<Secretary> createSecretary(Secretary secretary) {
+        secretary.setStatus(StatusRecord.ACTIVE);
         secretaryRepository.save(secretary);
         return ResponseEntity.status(201).body(secretary);
     }
@@ -41,12 +44,28 @@ public class SecretaryServiceImpl implements SecretaryService {
      */
     @Override
     public List<Secretary> getSecretary() {
-        List<Secretary> secretaryList = secretaryRepository.findAll();
+        List<Secretary> secretaryList = new ArrayList<>();
+        secretaryRepository.findAll().forEach(secretary -> {
+            if(secretary.getStatus() == StatusRecord.ACTIVE){
+                secretaryList.add(secretary);
+            }
+        });
+        return secretaryList;
+    }
+
+    public List<Secretary> getDeletedSecretary() {
+        List<Secretary> secretaryList = new ArrayList<>();
+        secretaryRepository.findAll().forEach(secretary -> {
+            if(secretary.getStatus() == StatusRecord.DELETED){
+                secretaryList.add(secretary);
+            }
+        });
         return secretaryList;
     }
 
     /**
      * This API return the list of doctor assigned to a secretary in his repository
+     *
      * @param id
      * @return doctorList
      * @throws Exception
@@ -62,6 +81,7 @@ public class SecretaryServiceImpl implements SecretaryService {
 
     /**
      * This API update a secretary by his DTO
+     *
      * @param id
      * @param secretaryDto
      * @return updatedSecretary
@@ -96,11 +116,15 @@ public class SecretaryServiceImpl implements SecretaryService {
 
     /**
      * This API delete all the secretaries
+     *
      * @return ResponseEntity
      */
     @Override
     public ResponseEntity deleteSecretary() {
-        secretaryRepository.deleteAll();
+        secretaryRepository.findAll().forEach(secretary -> {
+            secretary.setStatus(StatusRecord.DELETED);
+            secretaryRepository.saveAndFlush(secretary);
+        });
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

@@ -16,6 +16,8 @@ public interface PrenotationService {
 
     List<Prenotation> getAllPrenotation();
 
+    List<Prenotation> getAllDeletedPrenotation();
+
     ResponseEntity<Prenotation> updatePrenotation(long id, PrenotationDto prenotationDto);
 
     ResponseEntity<?> deletePrenotationById(long id);

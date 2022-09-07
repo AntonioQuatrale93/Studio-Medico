@@ -39,12 +39,12 @@ public class PrenotationController {
         return prenotationServiceImpl.updatePrenotation(id, prenotationDto);
     }
 
-    @DeleteMapping("/{id}")
+    @PatchMapping("/delete/{id}")
     public ResponseEntity deletePrenotationById(@PathVariable long id) {
         return prenotationServiceImpl.deletePrenotationById(id);
     }
 
-    @DeleteMapping
+    @PatchMapping("/delete")
     public void deleteAllPrenotation() {
         prenotationServiceImpl.deleteAllPrenotation();
     }

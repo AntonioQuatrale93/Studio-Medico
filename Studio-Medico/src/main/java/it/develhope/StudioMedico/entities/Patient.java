@@ -27,6 +27,8 @@ public class Patient {
     private String phoneNumber;
     @Column(name = "address")
     private String address;
+    @Column(name = "status")
+    private StatusRecord status;
 
 
     @OneToOne
@@ -41,7 +43,7 @@ public class Patient {
     }
 
 
-    public Patient(Long patientId, String name, String surname, String fiscalCode, Integer age, String email, String phoneNumber, String address, Doctor doctor, List<Prenotation> prenotationList) {
+    public Patient(StatusRecord status, Long patientId, String name, String surname, String fiscalCode, Integer age, String email, String phoneNumber, String address, Doctor doctor, List<Prenotation> prenotationList) {
         this.patientId = patientId;
         this.name = name;
         this.surname = surname;
@@ -52,6 +54,7 @@ public class Patient {
         this.age = age;
         this.doctor = doctor;
         this.prenotationList = prenotationList;
+        this.status = status;
     }
 
     public long getPatientId() {
@@ -132,6 +135,14 @@ public class Patient {
 
     public void setPrenotationList(List<Prenotation> prenotationList) {
         this.prenotationList = prenotationList;
+    }
+
+    public StatusRecord getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusRecord status) {
+        this.status = status;
     }
 }
 

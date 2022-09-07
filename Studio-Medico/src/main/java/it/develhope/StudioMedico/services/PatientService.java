@@ -15,6 +15,8 @@ public interface PatientService {
 
     List<Patient> getAllPatients();
 
+    List<Patient> getAllDeletedPatients();
+
     ResponseEntity<Patient> updatePatient(Long id, PatientDto patientDto);
 
     ResponseEntity<Patient> assignDoctor(Long patientId, Long doctorId);

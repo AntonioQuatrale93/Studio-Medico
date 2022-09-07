@@ -1,6 +1,6 @@
 package it.develhope.StudioMedico.dto;
 
-import it.develhope.StudioMedico.entities.PrenotationStatus;
+import it.develhope.StudioMedico.entities.StatusRecord;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -11,18 +11,18 @@ public class PrenotationDto {
     private LocalTime time;
     private Long doctorId;
     private Long patientId;
-    private PrenotationStatus prenotationStatus;
+    private StatusRecord status;
 
 
     public PrenotationDto() {
     }
 
-    public PrenotationDto(LocalDate date, Long doctorId, Long patientId, PrenotationStatus prenotationStatus, LocalTime time) {
+    public PrenotationDto(LocalDate date, Long doctorId, Long patientId, StatusRecord status, LocalTime time) {
         this.date = date;
         this.time = time;
         this.doctorId = doctorId;
         this.patientId = patientId;
-        this.prenotationStatus = prenotationStatus;
+        this.status = status;
     }
 
     public LocalDate getDate() {
@@ -40,8 +40,8 @@ public class PrenotationDto {
     }
 
 
-    public PrenotationStatus getPrenotationStatus() {
-        return prenotationStatus;
+    public StatusRecord getPrenotationStatus() {
+        return status;
     }
 
     public LocalTime getTime() {

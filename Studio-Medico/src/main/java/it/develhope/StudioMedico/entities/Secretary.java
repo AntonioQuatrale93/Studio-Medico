@@ -27,6 +27,7 @@ public class Secretary {
     private String phoneNumber;
     @Column(name = "address")
     private String address;
+    private StatusRecord status;
 
     @OneToMany(mappedBy = "secretary", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -35,7 +36,7 @@ public class Secretary {
     private Secretary() {
     }
 
-    public Secretary(Long secretaryId, String name, String surname, String fiscalCode, String email, String phoneNumber, String address, List<Doctor> doctorList) {
+    public Secretary(StatusRecord status, Long secretaryId, String name, String surname, String fiscalCode, String email, String phoneNumber, String address, List<Doctor> doctorList) {
         this.secretaryId = secretaryId;
         this.name = name;
         this.surname = surname;
@@ -44,6 +45,7 @@ public class Secretary {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.doctorList = doctorList;
+        this.status = status;
     }
 
     public long getSecretaryId() {
@@ -108,5 +110,13 @@ public class Secretary {
 
     public void setDoctorList(List<Doctor> doctorList) {
         this.doctorList = doctorList;
+    }
+
+    public StatusRecord getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusRecord status) {
+        this.status = status;
     }
 }

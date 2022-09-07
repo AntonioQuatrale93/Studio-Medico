@@ -34,6 +34,8 @@ public class Doctor {
     private String phoneNumber;
     @Column(name = "address")
     private String address;
+    @Column(name = "status")
+    private StatusRecord status;
 
 
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
@@ -42,7 +44,7 @@ public class Doctor {
 
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Patient> patientSet;
+    private List<Patient> patientList;
 
     @ManyToOne
     @JoinColumn(name = "secretary_id")
@@ -58,7 +60,7 @@ public class Doctor {
     /**
      * A simple constructor with all argument
      */
-    public Doctor(long doctorId, String name, String surname, String fiscalCode, String email, String specialization, String phoneNumber, String address, List<Prenotation> prenotationList, Secretary secretary, List<Patient> patientSet) {
+    public Doctor(long doctorId, String name, String surname, String fiscalCode, String email, String specialization, String phoneNumber, String address, List<Prenotation> prenotationList, Secretary secretary, List<Patient> patientList, StatusRecord status) {
         this.doctorId = doctorId;
         this.name = name;
         this.surname = surname;
@@ -69,7 +71,8 @@ public class Doctor {
         this.address = address;
         this.prenotationList = prenotationList;
         this.secretary = secretary;
-        this.patientSet = patientSet;
+        this.patientList = patientList;
+        this.status = status;
     }
 
     /**
@@ -252,13 +255,22 @@ public class Doctor {
         this.secretary = secretary;
     }
 
-    public List<Patient> getPatientSet() {
-        return patientSet;
+    public List<Patient> getPatientList() {
+        return patientList;
     }
 
     public void setPatientList(List<Patient> patientSet) {
-        this.patientSet = patientSet;
+        this.patientList = patientSet;
     }
+
+    public StatusRecord getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusRecord status) {
+        this.status = status;
+    }
+
 }
 
 

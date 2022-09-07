@@ -4,6 +4,7 @@ import it.develhope.StudioMedico.dto.DoctorDto;
 import it.develhope.StudioMedico.entities.Doctor;
 import it.develhope.StudioMedico.entities.Patient;
 import it.develhope.StudioMedico.entities.Prenotation;
+import it.develhope.StudioMedico.entities.StatusRecord;
 import it.develhope.StudioMedico.repositories.DoctorsRepository;
 import it.develhope.StudioMedico.repositories.SecretaryRepository;
 import it.develhope.StudioMedico.services.DoctorService;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,17 +29,20 @@ public class DoctorServiceImpl implements DoctorService {
 
     /**
      * Create entity doctor
+     *
      * @param doctor
      * @return doctor
      */
     @Override
     public ResponseEntity<Doctor> createDoctor(Doctor doctor) {
+        doctor.setStatus(StatusRecord.ACTIVE);
         doctorsRepository.save(doctor);
         return ResponseEntity.status(201).body(doctor);
     }
 
     /**
      * Return the doctor by id
+     *
      * @param id
      * @return doctor
      */
@@ -52,42 +57,72 @@ public class DoctorServiceImpl implements DoctorService {
 
     /**
      * Return all the doctors
+     *
      * @return doctors
      */
     @Override
     public List<Doctor> getAllDoctors() {
-        List<Doctor> doctorsList = doctorsRepository.findAll();
+        List<Doctor> doctorsList = new ArrayList<>();
+        doctorsRepository.findAll().forEach(doctor -> {
+            if (doctor.getStatus() == StatusRecord.ACTIVE) {
+                doctorsList.add(doctor);
+            }
+        });
+        return doctorsList;
+    }
+
+    @Override
+    public List<Doctor> getAllDeletedDoctors() {
+        List<Doctor> doctorsList = new ArrayList<>();
+        doctorsRepository.findAll().forEach(doctor -> {
+            if (doctor.getStatus() == StatusRecord.DELETED) {
+                doctorsList.add(doctor);
+            }
+        });
         return doctorsList;
     }
 
     /**
      * Ritorna tutte le prenotazioni del doctor tramite id
+     *
      * @param id
      * @return prenotationListById;
      */
     @Override
-    public List<Prenotation> getAllPrenotation(Long id) throws Exception {
+    public List<Prenotation> getAllDoctorPrenotation(Long id) throws Exception {
         if (doctorsRepository.existsById(id)) {
-            List<Prenotation> prenotationListById = doctorsRepository.findById(id).get().getPrenotationList();
-            return prenotationListById;
+            List<Prenotation> doctorActivePrenotation = new ArrayList<>();
+            doctorsRepository.findById(id).get().getPrenotationList().forEach(prenotation -> {
+                if (prenotation.getStatus() == StatusRecord.ACTIVE) {
+                    doctorActivePrenotation.add(prenotation);
+                }
+            });
+            return doctorActivePrenotation;
         } else throw new Exception("this doctor does not exist");
     }
 
     /**
      * Ritorna i patients del doctor tramite id
+     *
      * @param doctorId
      * @return patientListById
      */
     @Override
-    public List<Patient> getPatientList(Long doctorId) throws Exception {
+    public List<Patient> getDoctorPatientList(Long doctorId) throws Exception {
         if (doctorsRepository.existsById(doctorId)) {
-            List<Patient> patientListById = doctorsRepository.findById(doctorId).get().getPatientSet();
-            return patientListById;
+            List<Patient> activePatientList = new ArrayList<>();
+            doctorsRepository.findById(doctorId).get().getPatientList().forEach(patient -> {
+                if(patient.getStatus() == StatusRecord.ACTIVE){
+                    activePatientList.add(patient);
+                }
+            });
+            return activePatientList;
         } else throw new Exception("this doctor does not exist");
     }
 
     /**
      * Modifica un entità doctor
+     *
      * @param id
      * @param doctorDto
      * @return newDoctor
@@ -127,6 +162,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     /**
      * Assegna un entità Secretary ad un entità doctor
+     *
      * @param doctorId
      * @param secretaryId
      * @return updatedDoctor
@@ -144,13 +180,16 @@ public class DoctorServiceImpl implements DoctorService {
 
     /**
      * Elimina un entità doctor tramite id
+     *
      * @param id
      */
     @Override
     public ResponseEntity deleteById(Long id) {
         if (doctorsRepository.existsById(id)) {
-            doctorsRepository.deleteById(id);
-            return new ResponseEntity( HttpStatus.NO_CONTENT);
+            Doctor doctor = doctorsRepository.findById(id).get();
+            doctor.setStatus(StatusRecord.DELETED);
+            doctorsRepository.saveAndFlush(doctor);
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity("no doctor exist with id " + id, HttpStatus.NOT_FOUND);
         }
@@ -161,7 +200,10 @@ public class DoctorServiceImpl implements DoctorService {
      */
     @Override
     public ResponseEntity deleteAll() {
-        doctorsRepository.deleteAll();
+        doctorsRepository.findAll().forEach(doctor -> {
+            doctor.setStatus(StatusRecord.DELETED);
+            doctorsRepository.saveAndFlush(doctor);
+        });
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

@@ -18,11 +18,13 @@ public interface DoctorService {
 
     List<Doctor> getAllDoctors();
 
+    List<Doctor> getAllDeletedDoctors();
+
     ResponseEntity<Doctor> updateDoctor(Long id, DoctorDto doctorDto);
 
-    List<Prenotation> getAllPrenotation(Long id) throws Exception;
+    List<Prenotation> getAllDoctorPrenotation(Long id) throws Exception;
 
-    List<Patient> getPatientList(Long doctorId) throws Exception;
+    List<Patient> getDoctorPatientList(Long doctorId) throws Exception;
 
 
     ResponseEntity<Doctor> assignSecretary(Long doctorId, Long secretaryId);

@@ -3,7 +3,7 @@ package it.develhope.StudioMedico.serviceImpl;
 import it.develhope.StudioMedico.dto.PatientDto;
 import it.develhope.StudioMedico.entities.Patient;
 import it.develhope.StudioMedico.entities.Prenotation;
-import it.develhope.StudioMedico.entities.PrenotationStatus;
+import it.develhope.StudioMedico.entities.StatusRecord;
 import it.develhope.StudioMedico.repositories.DoctorsRepository;
 import it.develhope.StudioMedico.repositories.PatientRepository;
 import it.develhope.StudioMedico.repositories.PrenotationRepository;
@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,7 @@ public class PatientServiceImpl implements PatientService {
      */
     @Override
     public ResponseEntity<Patient> createPatient(Patient patient) {
+        patient.setStatus(StatusRecord.ACTIVE);
         patientRepository.save(patient);
         return ResponseEntity.status(201).body(patient);
     }
@@ -63,7 +65,23 @@ public class PatientServiceImpl implements PatientService {
      */
     @Override
     public List<Patient> getAllPatients() {
-        return patientRepository.findAll();
+        List<Patient> patientList = new ArrayList<>();
+        patientRepository.findAll().forEach(patient -> {
+            if(patient.getStatus() == StatusRecord.ACTIVE){
+                patientList.add(patient);
+            }
+        });
+        return patientList;
+    }
+
+    public List<Patient> getAllDeletedPatients() {
+        List<Patient> patientList = new ArrayList<>();
+        patientRepository.findAll().forEach(patient -> {
+            if(patient.getStatus() == StatusRecord.DELETED){
+                patientList.add(patient);
+            }
+        });
+        return patientList;
     }
 
 
@@ -130,7 +148,9 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public ResponseEntity deleteById(Long id) {
         if (patientRepository.existsById(id)) {
-            patientRepository.deleteById(id);
+            Patient patient = patientRepository.findById(id).get();
+            patient.setStatus(StatusRecord.DELETED);
+            patientRepository.saveAndFlush(patient);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity("no patient found with id :" + id, HttpStatus.NOT_FOUND);
@@ -143,7 +163,10 @@ public class PatientServiceImpl implements PatientService {
      */
     @Override
     public ResponseEntity deleteAll() {
-        patientRepository.deleteAll();
+        patientRepository.findAll().forEach(patient -> {
+            patient.setStatus(StatusRecord.DELETED);
+            patientRepository.saveAndFlush(patient);
+        });
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
@@ -166,8 +189,8 @@ public class PatientServiceImpl implements PatientService {
         } else {
             return new ResponseEntity("patient not found", HttpStatus.NOT_FOUND);
         }
-        prenotation.setPrenotationStatus(PrenotationStatus.BOOKED);
-        prenotation.setStatusRecord(prenotation.getPrenotationStatus().toString());
+        prenotation.setStatus(StatusRecord.ACTIVE);
+        prenotation.setTranslatedStatus(prenotation.getStatus().toString());
         return ResponseEntity.status(HttpStatus.CREATED).body(prenotationRepository.save(prenotation));
     }
 }

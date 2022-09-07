@@ -1,5 +1,7 @@
 package it.develhope.StudioMedico.dto;
 
+import it.develhope.StudioMedico.entities.StatusRecord;
+
 public class PatientDto {
 
     private String name;
@@ -9,11 +11,12 @@ public class PatientDto {
     private String email;
     private String phoneNumber;
     private String address;
+    private StatusRecord status;
 
     public PatientDto() {
     }
 
-    public PatientDto(String name, String surname, String fiscalCode, int age, String email, String phoneNumber, String address) {
+    public PatientDto(StatusRecord status, String name, String surname, String fiscalCode, int age, String email, String phoneNumber, String address) {
         this.name = name;
         this.surname = surname;
         this.fiscalCode = fiscalCode;
@@ -21,6 +24,7 @@ public class PatientDto {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.status = status;
     }
 
     public String getName() {
@@ -57,4 +61,7 @@ public class PatientDto {
         return address;
     }
 
+    public StatusRecord getStatus() {
+        return status;
+    }
 }
