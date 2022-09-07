@@ -114,7 +114,7 @@ public class PrenotationServiceImpl implements PrenotationService {
     @Override
     public ResponseEntity deletePrenotationById(long id) {
         if (prenotationRepository.existsById(id)) {
-            prenotationRepository.deleteById(id);
+            prenotationRepository.findById(id);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity("Prenotation with id " + id + " not found", HttpStatus.NOT_FOUND);

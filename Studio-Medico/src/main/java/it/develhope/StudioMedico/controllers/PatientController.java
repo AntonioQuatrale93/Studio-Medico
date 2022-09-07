@@ -62,7 +62,7 @@ public class PatientController {
 
     @PostMapping("/prenotation/{patientId}")
     public ResponseEntity<Prenotation> scheduleVisit(@PathVariable long patientId, @RequestParam long doctorId, @RequestBody Prenotation prenotation) {
-        return patientServiceImpl.scheduleVisit(prenotation, patientId, doctorId);
+        return patientServiceImpl.bookVisit(prenotation, patientId, doctorId);
     }
 
 

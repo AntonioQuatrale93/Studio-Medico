@@ -148,14 +148,14 @@ public class PatientServiceImpl implements PatientService {
     }
 
     /**
-     * This Api is used by the patiens to schedule a visit
+     * This Api is used by the patients to schedule a visit
      * @param prenotation
      * @param patientId
      * @param doctorId
      * @return prenotation
      */
 
-    public ResponseEntity<Prenotation> scheduleVisit(Prenotation prenotation, long patientId, long doctorId)  {
+    public ResponseEntity<Prenotation> bookVisit(Prenotation prenotation, long patientId, long doctorId)  {
         if (doctorsRepository.existsById(doctorId)) {
             prenotation.setDoctor(doctorsRepository.getReferenceById(doctorId));
         } else {

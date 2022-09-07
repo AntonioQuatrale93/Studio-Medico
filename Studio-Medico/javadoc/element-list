@@ -2,6 +2,7 @@ it.develhope.StudioMedico
 it.develhope.StudioMedico.controllers
 it.develhope.StudioMedico.dto
 it.develhope.StudioMedico.entities
+it.develhope.StudioMedico.exception
 it.develhope.StudioMedico.repositories
 it.develhope.StudioMedico.serviceImpl
 it.develhope.StudioMedico.services
