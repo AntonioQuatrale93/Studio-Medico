@@ -49,6 +49,7 @@ public class PrenotationServiceImpl implements PrenotationService {
             return new ResponseEntity("patient not found", HttpStatus.NOT_FOUND);
         }
         prenotation.setStatus(StatusRecord.ACTIVE);
+        prenotation.setTranslatedStatus(String.valueOf(prenotation.getStatus()));
         return ResponseEntity.ok(prenotationRepository.save(prenotation));
     }
 

@@ -31,6 +31,11 @@ public class PrenotationController {
         return prenotationServiceImpl.getAllPrenotation();
     }
 
+    @GetMapping("/deleted")
+    public List<Prenotation> getAllDeletedPrenotation() {
+        return prenotationServiceImpl.getAllDeletedPrenotation();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Prenotation>> getPrenotationById(@PathVariable long id) {
         return prenotationServiceImpl.getPrenotationById(id);
