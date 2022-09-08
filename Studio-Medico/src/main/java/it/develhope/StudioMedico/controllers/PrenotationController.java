@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * This class use all the Api defined in PrenotationServiceImpl
+ */
 @RestController
 @RequestMapping("/prenotation")
 public class PrenotationController {
