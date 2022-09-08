@@ -46,7 +46,7 @@ public class SecretaryServiceImpl implements SecretaryService {
     public List<Secretary> getSecretary() {
         List<Secretary> secretaryList = new ArrayList<>();
         secretaryRepository.findAll().forEach(secretary -> {
-            if(secretary.getStatus() == StatusRecord.ACTIVE){
+            if (secretary.getStatus() == StatusRecord.ACTIVE) {
                 secretaryList.add(secretary);
             }
         });
@@ -56,7 +56,7 @@ public class SecretaryServiceImpl implements SecretaryService {
     public List<Secretary> getDeletedSecretary() {
         List<Secretary> secretaryList = new ArrayList<>();
         secretaryRepository.findAll().forEach(secretary -> {
-            if(secretary.getStatus() == StatusRecord.DELETED){
+            if (secretary.getStatus() == StatusRecord.DELETED) {
                 secretaryList.add(secretary);
             }
         });

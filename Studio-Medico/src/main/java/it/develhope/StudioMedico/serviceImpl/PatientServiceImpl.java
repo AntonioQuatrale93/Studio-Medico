@@ -35,6 +35,7 @@ public class PatientServiceImpl implements PatientService {
 
     /**
      * This API create and save a patient in his repository
+     *
      * @param patient
      * @return the saved patient;
      */
@@ -47,6 +48,7 @@ public class PatientServiceImpl implements PatientService {
 
     /**
      * This API find a patient in the repository by Id
+     *
      * @param id
      * @return the founded patient
      */
@@ -61,13 +63,14 @@ public class PatientServiceImpl implements PatientService {
 
     /**
      * This Api return the list of all the patient
+     *
      * @return the list of patient
      */
     @Override
     public List<Patient> getAllPatients() {
         List<Patient> patientList = new ArrayList<>();
         patientRepository.findAll().forEach(patient -> {
-            if(patient.getStatus() == StatusRecord.ACTIVE){
+            if (patient.getStatus() == StatusRecord.ACTIVE) {
                 patientList.add(patient);
             }
         });
@@ -77,7 +80,7 @@ public class PatientServiceImpl implements PatientService {
     public List<Patient> getAllDeletedPatients() {
         List<Patient> patientList = new ArrayList<>();
         patientRepository.findAll().forEach(patient -> {
-            if(patient.getStatus() == StatusRecord.DELETED){
+            if (patient.getStatus() == StatusRecord.DELETED) {
                 patientList.add(patient);
             }
         });
@@ -87,6 +90,7 @@ public class PatientServiceImpl implements PatientService {
 
     /**
      * This API update the parameter of a patient found by ID
+     *
      * @param id
      * @param patientDto
      * @return a response entity with the updated  patient
@@ -119,12 +123,13 @@ public class PatientServiceImpl implements PatientService {
             Patient updatedPatient = patientRepository.saveAndFlush(patient);
             return ResponseEntity.ok(updatedPatient);
         } else {
-            return new ResponseEntity("no patient found with id: " + id , HttpStatus.NOT_FOUND);
+            return new ResponseEntity("no patient found with id: " + id, HttpStatus.NOT_FOUND);
         }
     }
 
     /**
      * This API assign a doctor to a patient
+     *
      * @param patientId
      * @param doctorId
      * @return a response entity with the updated patient
@@ -137,11 +142,12 @@ public class PatientServiceImpl implements PatientService {
             Patient updatedPatient = patientRepository.saveAndFlush(patient);
             return ResponseEntity.ok(updatedPatient);
         }
-        return new ResponseEntity("no patient found with id :" + patientId, HttpStatus.NOT_FOUND);
+        return new ResponseEntity("no patient found with id:" + patientId, HttpStatus.NOT_FOUND);
     }
 
     /**
      * This Api delete a patient found by Id
+     *
      * @param id
      * @return a ResponseEntity with the response code
      */
@@ -153,12 +159,13 @@ public class PatientServiceImpl implements PatientService {
             patientRepository.saveAndFlush(patient);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         } else {
-            return new ResponseEntity("no patient found with id :" + id, HttpStatus.NOT_FOUND);
+            return new ResponseEntity("no patient found with id:" + id, HttpStatus.NOT_FOUND);
         }
     }
 
     /**
      * This Api delete all the patients in the repository
+     *
      * @return a ResponseEntity with the response code
      */
     @Override
@@ -172,13 +179,14 @@ public class PatientServiceImpl implements PatientService {
 
     /**
      * This Api is used by the patients to schedule a visit
+     *
      * @param prenotation
      * @param patientId
      * @param doctorId
      * @return prenotation
      */
 
-    public ResponseEntity<Prenotation> bookVisit(Prenotation prenotation, long patientId, long doctorId)  {
+    public ResponseEntity<Prenotation> bookVisit(Prenotation prenotation, long patientId, long doctorId) {
         if (doctorsRepository.existsById(doctorId)) {
             prenotation.setDoctor(doctorsRepository.getReferenceById(doctorId));
         } else {

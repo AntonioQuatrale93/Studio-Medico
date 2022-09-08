@@ -30,6 +30,7 @@ public class PrenotationServiceImpl implements PrenotationService {
 
     /**
      * Create entity prenotation
+     *
      * @param prenotation
      * @param doctorId
      * @param patientId
@@ -53,6 +54,7 @@ public class PrenotationServiceImpl implements PrenotationService {
 
     /**
      * Return the prenotation by id
+     *
      * @param id
      * @return prenotation
      */
@@ -67,13 +69,14 @@ public class PrenotationServiceImpl implements PrenotationService {
 
     /**
      * Return all the prenotations
+     *
      * @return prenotations
      */
     @Override
     public List<Prenotation> getAllPrenotation() {
         List<Prenotation> activePrenotation = new ArrayList<>();
         prenotationRepository.findAll().forEach(prenotation -> {
-            if(prenotation.getStatus() == StatusRecord.ACTIVE){
+            if (prenotation.getStatus() == StatusRecord.ACTIVE) {
                 activePrenotation.add(prenotation);
             }
         });
@@ -84,7 +87,7 @@ public class PrenotationServiceImpl implements PrenotationService {
     public List<Prenotation> getAllDeletedPrenotation() {
         List<Prenotation> activePrenotation = new ArrayList<>();
         prenotationRepository.findAll().forEach(prenotation -> {
-            if(prenotation.getStatus() == StatusRecord.DELETED){
+            if (prenotation.getStatus() == StatusRecord.DELETED) {
                 activePrenotation.add(prenotation);
             }
         });
@@ -92,9 +95,9 @@ public class PrenotationServiceImpl implements PrenotationService {
     }
 
 
-
     /**
      * Modifica un entità prenotation
+     *
      * @param id
      * @param prenotationDto
      * @return updatedPrenotation
@@ -128,6 +131,7 @@ public class PrenotationServiceImpl implements PrenotationService {
 
     /**
      * Elimina un entità prenotation tramite id
+     *
      * @param id
      */
     @Override

@@ -112,7 +112,7 @@ public class DoctorServiceImpl implements DoctorService {
         if (doctorsRepository.existsById(doctorId)) {
             List<Patient> activePatientList = new ArrayList<>();
             doctorsRepository.findById(doctorId).get().getPatientList().forEach(patient -> {
-                if(patient.getStatus() == StatusRecord.ACTIVE){
+                if (patient.getStatus() == StatusRecord.ACTIVE) {
                     activePatientList.add(patient);
                 }
             });
