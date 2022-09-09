@@ -2,7 +2,7 @@ package it.develhope.StudioMedico.dto;
 
 import it.develhope.StudioMedico.entities.StatusRecord;
 
-public class PatientDto {
+public class PatientDto   {
 
     private String name;
     private String surname;
