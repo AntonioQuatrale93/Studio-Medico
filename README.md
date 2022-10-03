@@ -1,4 +1,4 @@
-!!! CAMBIARE URL, USERNAME E PASSWORD NELLO YAML SOSTITUENDOLI CON LE PROPRIE CREDENZIALI LOCALI !!!
+
 # Studio Medico
 Nel software in progetto andremo a creare la parte back end di una struttura ospedaliera. 
 Noi andremo a gestire il login tramite Springboot 
