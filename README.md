@@ -1,7 +1,7 @@
 
 # Studio Medico
 Nel software in progetto andremo a creare la parte back end di una struttura ospedaliera. 
-Noi andremo a gestire il login tramite Springboot 
+Il progetto si occupa della gestione delle visite mediche tramite Springboot 
 e andremo a creare il database e a definire la sua struttura, gestiremo le operazioni CRUD e le chiamate Api che poi verranno utilizzate per interfacciarsi al Database e per visualizzare, modificare o eliminare le visite e le prenotazioni.
 
 ***
