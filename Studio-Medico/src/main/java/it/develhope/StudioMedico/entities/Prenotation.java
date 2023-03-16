@@ -8,6 +8,7 @@ import java.util.Date;
 @Table(name = "prenotations")
 
 public class Prenotation {
+//primo piatti
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
